@@ -1,0 +1,14 @@
+.footer {
+  background-color: black;
+  padding: 30px 0;
+}
+.block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+}

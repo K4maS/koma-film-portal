@@ -1,0 +1,61 @@
+.block {
+	display: flex;
+	gap: 30px;
+	/* align-items: center; */
+	width: 100%;
+	background-color: var(--item-bg);
+	border-radius: 20px;
+	box-shadow: 0px 0px 6px var(--item-shadow);
+	/* height: 200px; */
+	padding: 20px 30px;
+	width: 100%;
+	margin-bottom: 30px;
+	min-height: 500px;
+}
+
+.poster {
+	width: 300px;
+	border-radius: 5px;
+}
+
+.rightBlock {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+.rightBlockTop {
+	display: flex;
+	align-items: center;
+}
+.text {
+	color: inherit;
+	text-decoration: none;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	gap: 5px;
+}
+.title {
+	font-size: 25px;
+	text-transform: uppercase;
+	max-width: 700px;
+}
+.year {
+	font-size: 18px;
+}
+.logo {
+	width: 20px;
+	height: 20px;
+}
+
+.filmTable {
+	text-align: start;
+}
+
+.label {
+	display: flex;
+	height: 100%;
+	padding: 7px 0;
+	font-weight: bold;
+}

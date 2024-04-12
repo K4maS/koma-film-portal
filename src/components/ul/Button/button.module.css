@@ -1,8 +1,10 @@
 .btn {
-    background-color: #ef233c;
-    color: #fff;
+    background-color: var(--button-bg);
+    color: var(--button-text);
     border-radius: 100px;
-    padding: 20px 32px;
-    border: 2px solid #ef233c;
+    padding: 18px 30px;
+    border: 2px solid var(--button-bg);
     cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
 }

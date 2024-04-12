@@ -1,5 +1,7 @@
+import { ErrorBlock } from '../../components/ErrorBlock/ErrorBlock';
 import { FilmsList } from '../../components/FilmsList/FilmsList';
 import { Header } from '../../components/Header/Header';
+import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
 import { useGetFilmsQuery } from '../../store/actions/fimlsApi';
 
 export const AllFilms = () => {
@@ -9,9 +11,9 @@ export const AllFilms = () => {
 			<Header></Header>
 			<div className="container">
 				{error ? (
-					<div>error</div>
+					<ErrorBlock text={'Не удалось загрузить'} />
 				) : isLoading ? (
-					<div>Loading</div>
+					<LoadingProcess/> 
 				) : data ? (
   
 					<FilmsList data={data.items}></FilmsList>

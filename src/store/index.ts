@@ -1,18 +1,19 @@
-import { configureStore } from '@reduxjs/toolkit';
-import filmReducer from './slices/Films';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { filmsApi } from './actions/fimlsApi';
+import { usersSlice } from './slices/Users';
+
+const rootReducer = combineReducers({
+      users: usersSlice,
+      [filmsApi.reducerPath]: filmsApi.reducer,
+})
 
 const store = configureStore({
-  reducer: {
-    film: filmReducer,
-    [filmsApi.reducerPath]: filmsApi.reducer,
-  },
-  
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => 
     getDefaultMiddleware().concat(filmsApi.middleware), 
 });
 
 export default store;
 
-export type RooState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

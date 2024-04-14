@@ -3,7 +3,7 @@ import { filmsApi } from './actions/fimlsApi';
 import { usersSlice } from './slices/Users';
 
 const rootReducer = combineReducers({
-      users: usersSlice,
+      users: usersSlice.reducer,
       [filmsApi.reducerPath]: filmsApi.reducer,
 })
 

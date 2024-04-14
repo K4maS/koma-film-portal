@@ -13,7 +13,7 @@ interface HeaderProps
 
 export const Header: React.FC<HeaderProps> = ({ ...props }) => {
 	const linksArr = [
-		{ name: 'Все фильмы', link: navigPaths.main },
+		{ name: 'Все премьеры', link: navigPaths.main },
 		{ name: 'Понравившиеся', link: navigPaths.liked },
 	];
 	return (

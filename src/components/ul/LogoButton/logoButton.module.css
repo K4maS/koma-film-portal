@@ -9,3 +9,7 @@
     font-size: 15px;
 }
 
+.btn.active {
+    background-color: var(--button-bg);
+    color:  var(--button-text);
+}

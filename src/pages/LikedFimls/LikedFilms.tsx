@@ -1,32 +1,33 @@
-import { useEffect, useState } from 'react';
 import { ErrorBlock } from '../../components/ErrorBlock/ErrorBlock';
 import { FilmsList } from '../../components/FilmsList/FilmsList';
 import { Header } from '../../components/Header/Header';
 import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
-import useAppSelector from '../../hooks/storeHooks';
-import { useGetFilmsQuery } from '../../store/actions/fimlsApi';
+import { useAppSelector } from '../../hooks/storeHooks';
+import { useGetFilmsFilteredQuery } from '../../store/actions/fimlsApi';
 import { kpFilmType } from '../../types';
 
 export const LikedFilms = () => {
-	// const likedFilmsIdList = useAppSelector((state) => {
-	// 	return state.users.users[0].likedFilmsId;
-	// });
-	const [dataFiltered, setDataFiltered] = useState([]);
+	const page = useAppSelector((state) => state.users?.currentPage);
+	const { data, isLoading, error } = useGetFilmsFilteredQuery({ page });
 
-	const { data, isLoading, error } = useGetFilmsQuery(null);
-	
-	// // const data: [] | kpFilmType[] = [];
-	// useEffect(() => {
-	// 	const filteredList = data.items.filter(
-	// 		(elem: kpFilmType): kpFilmType | undefined => {
-	// 			if (likedFilmsIdList.includes(elem.kinopoiskId)) {
-	// 				return elem;
-	// 			}
-	// 		}
-	// 	);
+	const currentUserId = useAppSelector((state) => state.users.currentUserId);
+	const likedFilmsIdList = useAppSelector((state) => {
+		if (currentUserId !== null) {
+			return state.users.users[currentUserId]?.likedFilmsId;
+		}
+	});
 
-	// 	setDataFiltered(filteredList);
-	// }, [data]);
+	function filmsFilter(data: kpFilmType[]): kpFilmType[] | [] {
+		if (data) {
+			return data.filter((elem: kpFilmType): kpFilmType | undefined => {
+				if (likedFilmsIdList && likedFilmsIdList.includes(elem.kinopoiskId)) {
+					return elem;
+				}
+			});
+		}
+
+		return [];
+	}
 
 	return (
 		<div>
@@ -36,8 +37,10 @@ export const LikedFilms = () => {
 					<ErrorBlock text={'Не удалось загрузить'} />
 				) : isLoading ? (
 					<LoadingProcess />
-				) : dataFiltered.length > 0 ? (
-					<FilmsList data={dataFiltered}></FilmsList>
+				) : filmsFilter(data.items).length <= 0 ? (
+					<h1>Пусто</h1>
+				) : data ? (
+					<FilmsList data={filmsFilter(data.items)}></FilmsList>
 				) : null}
 			</div>
 		</div>

@@ -3,7 +3,6 @@ import { kpFilmType } from '../../types';
 import { FilmItem } from '../FilmItem/FilmItem';
 import style from './filmsList.module.css';
 import { DividePages } from '../../util/dividePages';
-import SetClasses from '../../util/setClasses';
 import { PaginationBtn } from '../ul/PaginationBtn/PaginationBtn';
 
 interface FilmsListType

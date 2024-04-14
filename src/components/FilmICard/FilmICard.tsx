@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { addLikedFilm, removeFilmFromLiked } from '../../store/slices/Users';
 import { kpFullFilmType } from '../../types';
 import SetClasses from '../../util/setClasses';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
@@ -12,6 +15,25 @@ interface FilmCardType
 }
 
 export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
+	const dispatch = useAppDispatch();
+	const [inLikedList, setInLikedList] = useState(false);
+	const currentUserId = useAppSelector((state) => state.users.currentUserId);
+
+	const likedFilmsIdList = useAppSelector((state) => {
+		if (currentUserId !== null) {
+			return state.users.users[currentUserId]?.likedFilmsId;
+		}
+	});
+	useEffect(() => {
+		if (likedFilmsIdList) {
+			if (likedFilmsIdList.includes(data.kinopoiskId)) {
+				setInLikedList(true);
+			} else {
+				setInLikedList(false);
+			}
+		}
+	}, [likedFilmsIdList]);
+
 	return (
 		<div className={style.block}>
 			<div className={style.leftBlock}>
@@ -22,12 +44,14 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 				<div className={style.rightBlockTop}>
 					<div className={style.text}>
 						<h2 className={style.title}>
-							{data.nameRu} ({data.year})
+							{data.nameRu ? data.nameRu : data.nameOriginal} ({data.year})
 						</h2>
 
 						<p className={style.year}>
-							{data.nameOriginal ? data.nameOriginal + ',' : ''} 
-							{data.ratingAgeLimits.slice(3)}+
+							{data.nameOriginal && data.nameRu ? data.nameOriginal + ',' : ''}
+							{data.ratingAgeLimits
+								? ` ${data.ratingAgeLimits.slice(3)}+`
+								: data.ratingAgeLimits}
 						</p>
 
 						<p className={style.rated}>
@@ -35,21 +59,38 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 						</p>
 					</div>
 					<div className={style.buttons}>
-						<LogoButton >
-							Добавить в понравившиеся
-						</LogoButton>
+						{!inLikedList ? (
+							<LogoButton
+								onClick={() => dispatch(addLikedFilm({ id: data.kinopoiskId }))}
+							>
+								Добавить в понравившиеся
+							</LogoButton>
+						) : (
+							<LogoButton
+								onClick={() =>
+									dispatch(removeFilmFromLiked({ id: data.kinopoiskId }))
+								}
+								active
+							>
+								Удалить из понравившихся
+							</LogoButton>
+						)}
 					</div>
 				</div>
 
 				<table className={style.filmTable}>
 					<tbody>
 						<tr className={style.tableRow}>
-							<td className={SetClasses(style.label, style.top)}>Продолжительность:</td>
-							<td className={SetClasses(style.value, style.top)}>{data.filmLength} мин.</td>
+							<td className={SetClasses(style.label, style.top)}>
+								Продолжительность:
+							</td>
+							<td className={SetClasses(style.value, style.top)}>
+								{data.filmLength} мин.
+							</td>
 						</tr>
 						<tr className={style.tableRow}>
 							<td className={style.label}>Слоган:</td>
-							<td className={style.value}>{data.slogan? data.slogan : '-'}</td>
+							<td className={style.value}>{data.slogan ? data.slogan : '-'}</td>
 						</tr>
 						<tr className={style.tableRow}>
 							<td className={style.label}>Описание:</td>
@@ -73,9 +114,7 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 						</tr>
 						<tr className={style.tableRow}>
 							<td className={style.label}>Рейтинг Кинопоиска:</td>
-							<td className={style.value}>
-								{data.ratingKinopoisk || '-'}
-							</td>
+							<td className={style.value}>{data.ratingKinopoisk || '-'}</td>
 						</tr>
 						<tr className={style.tableRow}>
 							<td className={style.label}>Рейтинг IMDB:</td>
@@ -83,9 +122,7 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 						</tr>
 						<tr className={style.tableRow}>
 							<td className={style.label}>Количество отзывов на Кинопоиске:</td>
-							<td className={style.value}>
-								{data.reviewsCount || '-'}
-							</td>
+							<td className={style.value}>{data.reviewsCount || '-'}</td>
 						</tr>
 					</tbody>
 				</table>

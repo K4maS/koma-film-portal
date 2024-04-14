@@ -1,15 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { kpFilmType } from "../../../types";
 
-type UsersType = Array<{
+type UsersType = {
   id: number;
   login: string;
   password: string;
   likedFilmsId: number[];
-}>
+}
 type InitialState = {
-  users: UsersType;  
-  likedFilms: kpFilmType[];
+  users: UsersType[];  
+  currentPage: number,
+  currentUserId: number | null;
 }
 const initialState: InitialState = {
   users: [
@@ -20,59 +21,60 @@ const initialState: InitialState = {
     likedFilmsId: [],
     }
   ],
-
-  likedFilms: [{
-        "kinopoiskId": 602675,
-        "nameRu": "Каменщик",
-        "nameEn": "The Bricklayer",
-        "year": 2023,
-        "posterUrl": "https://kinopoiskapiunofficial.tech/images/posters/kp/602675.jpg",
-        "posterUrlPreview": "https://kinopoiskapiunofficial.tech/images/posters/kp_small/602675.jpg",
-        "countries": [
-          {
-            "country": "США"
-          },
-          {
-            "country": "Болгария"
-          },
-          {
-            "country": "Греция"
-          }
-        ],
-        "genres": [
-          {
-            "genre": "боевик"
-          },
-          {
-            "genre": "триллер"
-          }
-        ],
-        "duration": 110,
-        "premiereRu": "2024-01-04"
-      }
-  ]
+  currentPage: 1,
+  currentUserId: 0,
 }
 
 export const usersSlice = createSlice({
     name: 'users', 
     initialState, 
     reducers: {
-      addLikedFilm: (state, action: PayloadAction<{index: number, id: number}>| null) =>  {
-       if(action?.payload.index !== undefined && action?.payload.index !== undefined ){ 
-        const {index, id} = action.payload;
-        state.users[index].likedFilmsId.push(id)}
+      // Добавление ID фильма в список избранных
+      addLikedFilm: (state, action: PayloadAction<{id: number}>) =>  {
+        const userId = state.currentUserId;
+
+        if(action?.payload.id !== undefined && userId !== null ){ 
+          const {id} = action.payload;
+          const likedidList = state.users[userId].likedFilmsId;
+          if(!likedidList.includes(id)){
+            state.users[userId].likedFilmsId.push(id)
+          }
+        }
+
+        localStorage.setItem('users', JSON.stringify(state.users));
       },
-      removeFilmFromLiked: (state, action: PayloadAction<{index: number, id: number}>| null) =>  {
-        if(action?.payload.index !== undefined && action?.payload.index !== undefined ){ 
-         const {index, id} = action.payload;
-         const likedFilmsId = state.users[index].likedFilmsId;
-         const likedFilmIdIndex = likedFilmsId.indexOf(id);
-         state.users[index].likedFilmsId.splice(likedFilmIdIndex, 1);
+
+      // Удаление ID фильма из списка
+      removeFilmFromLiked: (state, action: PayloadAction<{id: number}>) =>  {
+        const userId = state.currentUserId;
+
+        if(action?.payload.id !== undefined && userId !== null  ){ 
+         const {id} = action.payload;
+         const likedFilmsId = state.users[userId].likedFilmsId;
+         const likedFilmIduserId = likedFilmsId.indexOf(id);
+         state.users[userId].likedFilmsId.splice(likedFilmIduserId, 1);
        }
+
+       localStorage.setItem('users', JSON.stringify(state.users));
+      },
+
+      // Обновление списка пользователей
+      updateUsers: (state, action: PayloadAction<UsersType[]>)=> {
+        state.users = action.payload;
+      },
+
+      // Изменение текущей страницы(не используется, на будущее)
+      setCurrentPage: (state, action: PayloadAction<number>) => {
+        state.currentPage = action.payload;
+      },
+      
+      // Добавление пользователя
+      createUser: (state, action: PayloadAction<UsersType>) => {
+        state.users.push(action.payload);
       },
     }
 })
 
-export const {addLikedFilm, removeFilmFromLiked} = usersSlice.actions;
+export const {addLikedFilm, removeFilmFromLiked, setCurrentPage, updateUsers} = usersSlice.actions;
 export default usersSlice.reducer;
 

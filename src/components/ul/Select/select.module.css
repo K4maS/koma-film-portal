@@ -1,0 +1,10 @@
+.select {
+    background-color: var(--header-bg);
+    color: var(--button-text);
+    border-radius: 100px;
+    padding: 18px 30px;
+    border: 2px solid var(--header-bg);
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
+}

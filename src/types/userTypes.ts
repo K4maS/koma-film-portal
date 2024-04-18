@@ -1,0 +1,1 @@
+export type authDataType = { login: string; password: string }

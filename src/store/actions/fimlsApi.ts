@@ -20,14 +20,34 @@ export const filmsApi = createApi({
     getFilmById: builder.query({
       query: (id) => `/api/v2.2/films/${id}`,
     }),
+    
     getFilmsFiltered: builder.query({
-      query: ({keyword='',
-       order='RATING',
+      query: ({
+        keyword='',
+        order='RATING',
         type='ALL', 
         ratingFrom=0, 
         ratingTo=10, 
         yearFrom=1000,
-         yearTo=3000, page=2}) => `/api/v2.2/films?order=${order}&type=${type}&ratingFrom=${ratingFrom}&ratingTo=${ratingTo}&yearFrom=${yearFrom}&yearTo=${yearTo}&keyword=${encodeURI(keyword) }&page=${page}`,
+        yearTo=3000, 
+        page=1}
+      ) => `/api/v2.2/films?order=${
+        order
+      }&type=${
+        type
+      }&ratingFrom=${
+        ratingFrom
+      }&ratingTo=${
+        ratingTo
+      }&yearFrom=${
+        yearFrom
+      }&yearTo=${
+        yearTo
+      }&keyword=${
+        encodeURI(keyword)
+      }&page=${
+        page
+      }`,
     }),
     
   }),

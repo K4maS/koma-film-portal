@@ -25,7 +25,7 @@ export const PaginationBtn: React.FC<PaginationBtnProps> = ({ index, active, onC
 	
   return (
 		<button onClick={onClick} className={SetClasses(style.paginatinBtn, activeBtn)}>
-			{index + 1}
+			{index}
 		</button>
 	);
 };

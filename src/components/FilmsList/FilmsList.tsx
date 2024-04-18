@@ -1,41 +1,45 @@
-import { useState } from 'react';
-import { kpFilmType } from '../../types';
+import { kpFullFilmType } from '../../types/filmTypes';
 import { FilmItem } from '../FilmItem/FilmItem';
 import style from './filmsList.module.css';
-import { DividePages } from '../../util/dividePages';
 import { PaginationBtn } from '../ul/PaginationBtn/PaginationBtn';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { setCurrentPage } from '../../store/slices/Users';
 
 interface FilmsListType
 	extends React.DetailedHTMLProps<
 		React.HTMLAttributes<HTMLUListElement>,
 		HTMLUListElement
 	> {
-	data: kpFilmType[];
+	data: kpFullFilmType[];
+	pages?: number;
 }
 
-export const FilmsList: React.FC<FilmsListType> = ({ data }) => {
-	const [page, setPage] = useState(0);
-	const pagedData = DividePages(data, 10);
+export const FilmsList: React.FC<FilmsListType> = ({ data, pages }) => {
+	const page = useAppSelector((state) => state.users.filmsFilter.page);
+	const dispatch = useAppDispatch();
+
 	return (
 		<div>
 			<ul className={style.list}>
-				{pagedData[page].map((elem: kpFilmType) => {
+				{data.map((elem: kpFullFilmType) => {
 					return <FilmItem data={elem} key={elem.kinopoiskId}></FilmItem>;
 				})}
 			</ul>
-			{pagedData.length > 1 && (
+			{pages && pages > 1 && (
 				<ul className={style.pagination}>
-					{pagedData.map((elem, index) => {
-						return (
-							<li className={style.paginationItem} key={index}>
-								<PaginationBtn
-									onClick={() => setPage(index)}
-									index={index}
-									active={index === page}
-								></PaginationBtn>
-							</li>
-						);
-					})}
+					{pages &&
+						Array.from({ length: pages - 1 }).map((elem, index) => {
+							index = index + 1;
+							return (
+								<li className={style.paginationItem} key={index}>
+									<PaginationBtn
+										onClick={() => dispatch(setCurrentPage(index))}
+										index={index}
+										active={index === page}
+									></PaginationBtn>
+								</li>
+							);
+						})}
 				</ul>
 			)}
 		</div>

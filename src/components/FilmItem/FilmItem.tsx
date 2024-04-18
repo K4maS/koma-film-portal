@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import { kpFilmType } from '../../types';
+import { Link, useNavigate } from 'react-router-dom';
+import { kpFullFilmType } from '../../types/filmTypes';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
 import style from './filmItem.module.css';
 import { BsHandThumbsUpFill, BsHandThumbsDownFill } from 'react-icons/bs';
@@ -13,7 +13,7 @@ interface FilmItemType
 		React.HTMLAttributes<HTMLUListElement>,
 		HTMLUListElement
 	> {
-	data: kpFilmType;
+	data: kpFullFilmType;
 }
 
 export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
@@ -21,9 +21,11 @@ export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
 	const [inLikedList, setInLikedList] = useState(false);
 	const currentUserId = useAppSelector((state) => state.users.currentUserId);
 
+	const navigate = useNavigate();
+
 	const likedFilmsIdList = useAppSelector((state) => {
 		if (currentUserId !== null) {
-			return state.users.users[currentUserId]?.likedFilmsId;
+			return state.users.usersList[currentUserId]?.likedFilmsId;
 		}
 	});
 	useEffect(() => {
@@ -45,10 +47,22 @@ export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
 				<img
 					className={style.poster}
 					src={data.posterUrlPreview}
-					alt={data.nameRu ? data.nameRu : data.nameOriginal}
+					alt={
+						data.nameRu
+							? data.nameRu
+							: data.nameEn
+							? data.nameEn
+							: data.nameOriginal!
+					}
 				/>
 				<div className={style.block}>
-					<h2>{data.nameRu ? data.nameRu : data.nameOriginal}</h2>
+					<h2>
+						{data.nameRu
+							? data.nameRu
+							: data.nameEn
+							? data.nameEn
+							: data.nameOriginal!}
+					</h2>
 					<p className={style.year}>
 						{data.nameEn ? data.nameEn + ',' : ''} {data.year}
 					</p>
@@ -64,7 +78,12 @@ export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
 							onClick={(e) => {
 								e.preventDefault();
 								e.stopPropagation();
-								dispatch(addLikedFilm({ id: data.kinopoiskId }));
+
+								if (currentUserId !== null) {
+									dispatch(addLikedFilm({ film: data }));
+								} else {
+									navigate(navigPaths.login);
+								}
 							}}
 						>
 							<BsHandThumbsUpFill /> Лайк

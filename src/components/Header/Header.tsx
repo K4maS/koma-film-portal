@@ -1,9 +1,11 @@
 import style from './header.module.css';
 import { Button } from '../ul/Button/Button';
 import { Logo } from '../ul/Logo/Logo';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { navigPaths } from '../../navigationPaths';
 import SetClasses from '../../util/setClasses';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { doAuthorization, doUserExid } from '../../store/slices/Users';
 
 interface HeaderProps
 	extends React.DetailedHTMLProps<
@@ -12,8 +14,12 @@ interface HeaderProps
 	> {}
 
 export const Header: React.FC<HeaderProps> = ({ ...props }) => {
+	const currentUserId = useAppSelector((state) => state.users.currentUserId);
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+
 	const linksArr = [
-		{ name: 'Все премьеры', link: navigPaths.main },
+		{ name: 'Все фильмы', link: navigPaths.main },
 		{ name: 'Понравившиеся', link: navigPaths.liked },
 	];
 	return (
@@ -24,7 +30,8 @@ export const Header: React.FC<HeaderProps> = ({ ...props }) => {
 					<nav className={style.nav}>
 						{linksArr.map((elem) => {
 							return (
-								<Link key={elem.name}
+								<Link
+									key={elem.name}
 									to={elem.link}
 									className={SetClasses(
 										style.link,
@@ -36,7 +43,21 @@ export const Header: React.FC<HeaderProps> = ({ ...props }) => {
 							);
 						})}
 					</nav>
-					<Button title="Войти"></Button>
+					{currentUserId === null ? (
+						<Button
+							title="Войти"
+							onClick={() => {
+								navigate(navigPaths.login);
+							}}
+						></Button>
+					) : (
+						<Button
+							title="Выйти"
+							onClick={() => {
+								dispatch(doUserExid());
+							}}
+						></Button>
+					)}
 				</div>
 			</div>
 		</header>

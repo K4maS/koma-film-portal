@@ -1,3 +1,4 @@
+import MessageBlock from '../MessageBlock/MessageBlock';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
 import style from './errorBlock.module.css';
 import { AiOutlineReload } from 'react-icons/ai';
@@ -12,8 +13,7 @@ interface ErrorBlockType
 
 export const ErrorBlock: React.FC<ErrorBlockType> = ({ text }) => {
 	return (
-		<div className={style.block}>
-			<h1 className={style.text}>{text}</h1>
+		<MessageBlock className={style.block} title={text}>
 			<LogoButton
 				onClick={() => {
 					window.location.reload();
@@ -21,6 +21,6 @@ export const ErrorBlock: React.FC<ErrorBlockType> = ({ text }) => {
 			>
 				<AiOutlineReload /> Перезагрузить
 			</LogoButton>
-		</div>
+		</MessageBlock>
 	);
 };

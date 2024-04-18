@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { addLikedFilm, removeFilmFromLiked } from '../../store/slices/Users';
-import { kpFullFilmType } from '../../types';
+import { kpFullFilmType } from '../../types/filmTypes';
 import SetClasses from '../../util/setClasses';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
 import style from './filmCard.module.css';
+import { useNavigate } from 'react-router-dom';
+import { navigPaths } from '../../navigationPaths';
 
 interface FilmCardType
 	extends React.DetailedHTMLProps<
@@ -18,10 +20,12 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 	const dispatch = useAppDispatch();
 	const [inLikedList, setInLikedList] = useState(false);
 	const currentUserId = useAppSelector((state) => state.users.currentUserId);
+	
+	const navigate = useNavigate();
 
 	const likedFilmsIdList = useAppSelector((state) => {
 		if (currentUserId !== null) {
-			return state.users.users[currentUserId]?.likedFilmsId;
+			return state.users.usersList[currentUserId]?.likedFilmsId;
 		}
 	});
 	useEffect(() => {
@@ -61,7 +65,13 @@ export const FilmCard: React.FC<FilmCardType> = ({ data }) => {
 					<div className={style.buttons}>
 						{!inLikedList ? (
 							<LogoButton
-								onClick={() => dispatch(addLikedFilm({ id: data.kinopoiskId }))}
+								onClick={() => {
+									if (currentUserId !== null) {
+										dispatch(addLikedFilm({ film: data }));
+									} else {
+										navigate(navigPaths.login);
+									}
+								}}
 							>
 								Добавить в понравившиеся
 							</LogoButton>

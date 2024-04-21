@@ -1,13 +1,12 @@
-
-import { Header } from '../../components/Header/Header';
-import { NotFound } from '../../components/NotFound/NotFound';
-
+import React from 'react'
+import { Header } from '../../components/Header/Header'
+import { NotFound } from '../../components/NotFound/NotFound'
 
 export const NotFoundPage = () => {
-	return (
-		<div>
-			<Header></Header>
-			<NotFound/>
-		</div>
-	);
-};
+  return (
+    <div>
+      <Header></Header>
+      <NotFound />
+    </div>
+  )
+}

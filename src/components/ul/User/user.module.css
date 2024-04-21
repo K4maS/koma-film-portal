@@ -1,0 +1,15 @@
+.btnUser {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  border: none;
+  color: var(--text-color);
+  font-size: 20px;
+}
+
+.userAva {
+  border: 1px solid var(--text-color);
+  background: var(--button-color);
+  padding: 10px;
+  font-size: 25px;
+}

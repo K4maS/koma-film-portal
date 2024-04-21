@@ -1,46 +1,51 @@
-import { ErrorBlock } from '../../components/ErrorBlock/ErrorBlock';
-import { FilmsList } from '../../components/FilmsList/FilmsList';
-import { Header } from '../../components/Header/Header';
-import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
-import PageMessage from '../../components/MessageBlock/MessageBlock';
-import { useAppSelector } from '../../hooks/storeHooks';
-import { useGetFilmsFilteredQuery } from '../../store/actions/fimlsApi';
-import { kpFullFilmType } from '../../types/filmTypes';
+import React, { useEffect, useState } from 'react'
+import { FilmsList } from '../../components/FilmsList/FilmsList'
+import { Header } from '../../components/Header/Header'
+import PageMessage from '../../components/MessageBlock/MessageBlock'
+import { useAppSelector } from '../../hooks/storeHooks'
+import { kpFullFilmType } from '../../types/filmTypes'
+import { GetIndexOfUserById } from '../../util/getIndexOfUserById'
 
 export const LikedFilms = () => {
-	const allLikedFilmsIdList = useAppSelector((state) => state.users.likedFilms);
+  const allLikedFilmsIdList = useAppSelector((state) => state.users.likedFilms)
+  const usersList = useAppSelector((state) => state.users.usersList)
 
-	const currentUserId = useAppSelector((state) => state.users.currentUserId);
-	const likedFilmsIdList = useAppSelector((state) => {
-		if (currentUserId !== null) {
-			return state.users.usersList[currentUserId]?.likedFilmsId;
-		}
-	});
+  const currentUserId = useAppSelector((state) => state.users.currentUserId)
+  const likedFilms = useAppSelector((state) => state.users.usersList)
 
-	function filmsFilter(data: kpFullFilmType[]): kpFullFilmType[] | [] {
-		if (data) {
-			return data.filter((elem: kpFullFilmType): kpFullFilmType | undefined => {
-				if (likedFilmsIdList && likedFilmsIdList.includes(elem.kinopoiskId)) {
-					return elem;
-				}
-			});
-		}
+  const [likedFilmsIdList, setLikedFilmsIdList] = useState<number[]>([])
 
-		return [];
-	}
+  useEffect(() => {
+    if (currentUserId !== null && likedFilms !== undefined) {
+      const index = GetIndexOfUserById(usersList, currentUserId)
+      setLikedFilmsIdList(likedFilms[index].likedFilmsId)
+    }
+  }, [likedFilms])
 
-	return (
-		<div>
-			<Header></Header>
-			<div className="container">
-				{currentUserId === null ? (
-					<PageMessage title="Авторизуйтесь чтобы увидеть ваш список любимых фильмов" />
-				) : filmsFilter(allLikedFilmsIdList).length <= 0 ? (
-					<PageMessage title="Список пуст" />
-				) : filmsFilter(allLikedFilmsIdList) ? (
-					<FilmsList data={filmsFilter(allLikedFilmsIdList)}></FilmsList>
-				) : null}
-			</div>
-		</div>
-	);
-};
+  function filmsFilter(data: kpFullFilmType[]): kpFullFilmType[] | [] {
+    if (data) {
+      return data.filter((elem: kpFullFilmType): kpFullFilmType | undefined => {
+        if (likedFilmsIdList && likedFilmsIdList.includes(elem.kinopoiskId)) {
+          return elem
+        }
+      })
+    }
+
+    return []
+  }
+
+  return (
+    <div>
+      <Header></Header>
+      <div className="container">
+        {currentUserId === null ? (
+          <PageMessage title="Авторизуйтесь чтобы увидеть ваш список любимых фильмов" />
+        ) : filmsFilter(allLikedFilmsIdList).length <= 0 ? (
+          <PageMessage title="Список пуст" />
+        ) : filmsFilter(allLikedFilmsIdList) ? (
+          <FilmsList data={filmsFilter(allLikedFilmsIdList)}></FilmsList>
+        ) : null}
+      </div>
+    </div>
+  )
+}

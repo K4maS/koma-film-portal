@@ -18,6 +18,7 @@ export default function RegistrationForm() {
 		password: '',
 	});
 	const [inputErrorMessage, setInputErrorMessage] = useState<string>('');
+	const [repeatPassword, setRepeatPassword] = useState<string>('');
 
 	const errorMessage = useAppSelector((state) => state.users.userError);
 
@@ -27,7 +28,7 @@ export default function RegistrationForm() {
 	const dispatch = useAppDispatch();
 
 	const getRegistration = (e: React.ChangeEvent, data: authDataType) => {
-		if (!inputErrorMessage) {
+		if (repeatPassword === loginData.password) {
 			e.preventDefault();
 			e.stopPropagation();
 			dispatch(createUser(data));
@@ -39,19 +40,21 @@ export default function RegistrationForm() {
 	}, []);
 
 	useEffect(() => {
-		if (!errorMessage && !inputErrorMessage) {
-			// navigate(navigPaths.login);
-			// Сдеалать проверку на наличии данного логина в списке
+		const registratedUser = usersList.find(
+			(elem) =>
+				elem.login === loginData.login && elem.password === loginData.password,
+		);
+
+		if (registratedUser && !errorMessage) {
+			navigate(navigPaths.login);
 		}
-	}, [errorMessage, inputErrorMessage]);
+	}, [usersList, errorMessage, inputErrorMessage]);
 
 	return (
 		<form
 			className={style.form}
 			onSubmit={(e: React.ChangeEvent<HTMLFormElement>) => {
-				if (!inputErrorMessage) {
-					getRegistration(e, loginData);
-				}
+				getRegistration(e, loginData);
 			}}
 		>
 			<Input
@@ -75,7 +78,7 @@ export default function RegistrationForm() {
 				placeholder={'Повторить пароль'}
 				onInput={(e) => {
 					const value = (e.target as HTMLInputElement).value;
-
+					setRepeatPassword(value);
 					if (value !== loginData.password) {
 						setInputErrorMessage('Пароли не совпадают');
 					} else {

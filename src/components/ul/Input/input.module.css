@@ -1,17 +1,31 @@
+.inputBlock {
+	width: 100%;
+	position: relative;
+}
 .input {
-  background-color: var(--header-bg);
-  color: var(--button-text);
-  border-radius: 100px;
-  padding: 18px 30px;
-  border: 2px solid var(--header-bg);
-  cursor: auto;
-  font-weight: 700;
-  font-size: 17px;
+	background-color: var(--header-bg);
+	color: var(--button-text);
+	border-radius: 100px;
+	padding: 18px 30px;
+	border: 2px solid var(--header-bg);
+	cursor: auto;
+	font-weight: 700;
+	font-size: 17px;
+	width: 100%;
+}
+
+.inputBtn {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	right: 20px;
+	margin-top: -10px;
+	top: 50%;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+	/* display: none; <- Crashes Chrome on hover */
+	-webkit-appearance: none;
+	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }

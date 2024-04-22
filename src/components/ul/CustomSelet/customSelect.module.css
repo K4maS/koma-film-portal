@@ -1,0 +1,82 @@
+.select {
+	background-color: var(--header-bg);
+	color: var(--button-text);
+	border-radius: 100px;
+	padding: 18px 30px;
+	border: 2px solid var(--header-bg);
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 17px;
+}
+
+/* section */
+.selection {
+	width: 176px;
+	margin-right: 50px;
+}
+
+.choices {
+	display: flex;
+	align-items: center;
+	width: 176px;
+	height: 39px;
+	background: #ffffff;
+	border-radius: 10px;
+}
+
+.isFocused {
+	display: flex;
+	align-items: center;
+	width: 176px;
+	height: 39px;
+	background: #ffffff;
+	border: 1px solid #ccb26e;
+	border-radius: 10px;
+}
+
+.isActive {
+	display: flex;
+	align-items: center;
+	width: 176px;
+	/* height: 39px; */
+	background: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #ccb26e;
+}
+
+.choices[data-type*='select-one']::after {
+	content: '';
+	width: 15px;
+	height: 8px;
+	background: url('../img/Rectangle 141.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: none;
+}
+
+.isOpen.choices[data-type*='select-one']::after {
+	content: '';
+
+	width: 15px;
+	height: 8px;
+	background: url('../img/Rectangle 141.svg');
+	background-repeat: no-repeat;
+	background-position: center;
+	border: none;
+	transform: rotate(180deg);
+}
+
+.choicesInner {
+	display: flex;
+	align-items: center;
+	width: 176px;
+	/* height: 39px; */
+	background: #ffffff;
+	border-radius: 10px;
+	border: 1px solid #ccb26e;
+}
+
+.choicesList--dropdown {
+	border-radius: 10px;
+	border: 1px solid #ccb26e;
+}

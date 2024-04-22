@@ -1,15 +1,15 @@
-import { UserType } from '../types/userTypes'
+import { UserType } from '../types/userTypes';
 
 export function GetIndexOfUserById(
-  usersList: UserType[],
-  userId: number,
+	usersList: UserType[],
+	userId: number,
 ): number {
-  let userIndex = 0
+	let userIndex = 0;
 
-  usersList.find((elem: UserType, index: number) => {
-    if (elem.id === userId) {
-      userIndex = index
-    }
-  })
-  return userIndex
+	usersList.find((elem: UserType, index: number) => {
+		if (elem.id === userId) {
+			userIndex = index;
+		}
+	});
+	return userIndex;
 }

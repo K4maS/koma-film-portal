@@ -1,66 +1,66 @@
-import style from './header.module.css'
-import { Button } from '../ul/Button/Button'
-import { Logo } from '../ul/Logo/Logo'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { navigPaths } from '../../navigationPaths'
-import SetClasses from '../../util/setClasses'
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks'
-import { doAuthorization, doUserExid } from '../../store/slices/Users'
-import { User } from '../ul/User/User'
-import React from 'react'
+import style from './header.module.css';
+import { Button } from '../ul/Button/Button';
+import { Logo } from '../ul/Logo/Logo';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { navigPaths } from '../../navigationPaths';
+import SetClasses from '../../util/setClasses';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { doAuthorization, doUserExid } from '../../store/slices/Users';
+import { User } from '../ul/User/User';
+import React from 'react';
 
 export const Header: React.FC = ({ ...props }) => {
-  const currentUserId = useAppSelector((state) => state.users.currentUserId)
-  const dispatch = useAppDispatch()
-  const navigate = useNavigate()
-  const location = useLocation()
-  const linksArr = [
-    { name: 'Все фильмы', link: navigPaths.main },
-    { name: 'Понравившиеся', link: navigPaths.liked },
-  ]
-  return (
-    <header className={style.header} {...props}>
-      <div className="container">
-        <div className={style.headerBlock}>
-          <Logo />
-          <nav className={style.nav}>
-            {linksArr.map((elem) => {
-              return (
-                <NavLink
-                  key={elem.name}
-                  to={elem.link}
-                  className={SetClasses(
-                    style.link,
-                    location.pathname === elem.link ? style.active : '',
-                  )}
-                >
-                  {elem.name}
-                </NavLink>
-              )
-            })}
-          </nav>
-          {currentUserId === null ? (
-            <Button
-              title="Войти"
-              onClick={() => {
-                navigate(navigPaths.login)
-              }}
-            ></Button>
-          ) : (
-            // <Button
-            // 	title="Выйти"
-            // 	onClick={() => {
-            // 		dispatch(doUserExid());
-            // 	}}
-            // ></Button>
-            <User
-              onClick={() => {
-                dispatch(doUserExid())
-              }}
-            />
-          )}
-        </div>
-      </div>
-    </header>
-  )
-}
+	const currentUserId = useAppSelector((state) => state.users.currentUserId);
+	const dispatch = useAppDispatch();
+	const navigate = useNavigate();
+	const location = useLocation();
+	const linksArr = [
+		{ name: 'Все фильмы', link: navigPaths.main },
+		{ name: 'Понравившиеся', link: navigPaths.liked },
+	];
+	return (
+		<header className={style.header} {...props}>
+			<div className="container">
+				<div className={style.headerBlock}>
+					<Logo />
+					<nav className={style.nav}>
+						{linksArr.map((elem) => {
+							return (
+								<NavLink
+									key={elem.name}
+									to={elem.link}
+									className={SetClasses(
+										style.link,
+										location.pathname === elem.link ? style.active : '',
+									)}
+								>
+									{elem.name}
+								</NavLink>
+							);
+						})}
+					</nav>
+					{currentUserId === null ? (
+						<Button
+							title="Войти"
+							onClick={() => {
+								navigate(navigPaths.login);
+							}}
+						></Button>
+					) : (
+						// <Button
+						// 	title="Выйти"
+						// 	onClick={() => {
+						// 		dispatch(doUserExid());
+						// 	}}
+						// ></Button>
+						<User
+							onClick={() => {
+								dispatch(doUserExid());
+							}}
+						/>
+					)}
+				</div>
+			</div>
+		</header>
+	);
+};

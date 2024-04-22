@@ -1,64 +1,109 @@
-import React, { useEffect } from 'react'
-import './App.css'
-
-import { Route, Routes } from 'react-router-dom'
-import { navigPaths } from './navigationPaths'
-
-import { AllFilms } from './pages/AllFimls/AllFilms'
-import { LikedFilms } from './pages/LikedFimls/LikedFilms'
-import { Footer } from './components/Footer/Footer'
-import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
-import { NotFoundPage } from './pages/NotFoundPage/NotFoundPage'
-import { FilmPage } from './pages/FilmPage/FilmPage'
-import { useAppDispatch } from './hooks/storeHooks'
+import React, { Suspense, useEffect } from 'react';
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import { navigPaths } from './navigationPaths';
+import { Footer } from './components/Footer/Footer';
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
+import { useAppDispatch, useAppSelector } from './hooks/storeHooks';
 import {
-  updateCurrentUserId,
-  updateLikedFilmsList,
-  updateUsers,
-} from './store/slices/Users'
-import AuthPage from './pages/AuthPage/AuthPage'
-import RegistrationPage from './pages/RegistrationPage/RegistrationPage'
+	updateCurrentUserId,
+	updateLikedFilmsList,
+	updateUsers,
+} from './store/slices/Users';
+import { LoadingProcess } from './components/LoadingProcess/LoadingProcess';
+
+const LazyAuthPage = React.lazy(() => import('./pages/AuthPage/AuthPage'));
+const LazyRegistrationPage = React.lazy(
+	() => import('./pages/RegistrationPage/RegistrationPage'),
+);
+const LazyNotFoundPage = React.lazy(
+	() => import('./pages/NotFoundPage/NotFoundPage'),
+);
+const LazyAllFilms = React.lazy(() => import('./pages/AllFilms/AllFilms'));
+const LazyFilmPage = React.lazy(() => import('./pages/FilmPage/FilmPage'));
+const LazyLikedFilms = React.lazy(
+	() => import('./pages/LikedFilms/LikedFilms'),
+);
 
 function App() {
-  const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const usersLocal = localStorage.getItem('users')
-    const currentUserIdLocal = localStorage.getItem('currentUserId')
-    const likedFilmaLocal = localStorage.getItem('likedFilms')
+	useEffect(() => {
+		const usersLocal = localStorage.getItem('users');
+		const currentUserIdLocal = localStorage.getItem('currentUserId');
+		const likedFilmaLocal = localStorage.getItem('likedFilms');
 
-    if (usersLocal) {
-      dispatch(updateUsers(JSON.parse(usersLocal)))
-    }
+		if (usersLocal) {
+			dispatch(updateUsers(JSON.parse(usersLocal)));
+		}
 
-    if (currentUserIdLocal) {
-      dispatch(updateCurrentUserId(JSON.parse(currentUserIdLocal)))
-    }
+		if (currentUserIdLocal) {
+			dispatch(updateCurrentUserId(JSON.parse(currentUserIdLocal)));
+		}
 
-    if (likedFilmaLocal) {
-      dispatch(updateLikedFilmsList(JSON.parse(likedFilmaLocal)))
-    }
-  }, [])
+		if (likedFilmaLocal) {
+			dispatch(updateLikedFilmsList(JSON.parse(likedFilmaLocal)));
+		}
+	}, []);
 
-  return (
-    <div className="App">
-      <ErrorBoundary>
-        <Routes>
-          <Route path={navigPaths.login} element={<AuthPage />} />
-          <Route
-            path={navigPaths.registriation}
-            element={<RegistrationPage />}
-          />
-          <Route path={navigPaths.main} element={<AllFilms />} />
-          <Route path={navigPaths.liked} element={<LikedFilms />} />
-          <Route path={`${navigPaths.card}/:id`} element={<FilmPage />} />
+	return (
+		<div className="App">
+			<ErrorBoundary>
+				<Routes>
+					<Route
+						path={navigPaths.login}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyAuthPage />
+							</Suspense>
+						}
+					/>
+					<Route
+						path={navigPaths.registriation}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyRegistrationPage />
+							</Suspense>
+						}
+					/>
+					<Route
+						path={navigPaths.main}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyAllFilms />
+							</Suspense>
+						}
+					/>
+					<Route
+						path={navigPaths.liked}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyLikedFilms />
+							</Suspense>
+						}
+					/>
+					<Route
+						path={`${navigPaths.card}/:id`}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyFilmPage />
+							</Suspense>
+						}
+					/>
 
-          <Route path={'*'} element={<NotFoundPage />} />
-        </Routes>
-      </ErrorBoundary>
-      {/* <Footer></Footer> */}
-    </div>
-  )
+					<Route
+						path={'*'}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyNotFoundPage />
+							</Suspense>
+						}
+					/>
+				</Routes>
+			</ErrorBoundary>
+			{/* <Footer></Footer> */}
+		</div>
+	);
 }
 
-export default App
+export default App;

@@ -1,31 +1,31 @@
 .btn {
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border-radius: 100px;
-  padding: 18px 30px;
-  border: 2px solid var(--button-bg);
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 17px;
-  transition:
-    background 0.3s linear,
-    border 0.3s linear,
-    color 0.3s linear;
+	background-color: var(--button-bg);
+	color: var(--button-text);
+	border-radius: 100px;
+	padding: 18px 30px;
+	border: 2px solid var(--button-bg);
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 17px;
+	transition:
+		background 0.3s linear,
+		border 0.3s linear,
+		color 0.3s linear;
 }
 
 .btn:hover {
-  background-color: var(--button-bg-hov);
+	background-color: var(--button-bg-hov);
 }
 
 .btn:active {
-  background-color: var(--button-bg-act);
+	background-color: var(--button-bg-act);
 }
 
 .disabled,
 .disabled:hover,
 .disabled:active {
-  background-color: var(--header-bg);
-  border-color: var(--header-bg);
-  color: var(--header-bg);
-  cursor: auto;
+	background-color: var(--header-bg);
+	border-color: var(--header-bg);
+	color: var(--header-bg);
+	cursor: auto;
 }

@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 500px;
+  padding: 60px 60px 30px;
+  background-color: var(--header-bg);
+  border-radius: 50px;
+}
+
+.link {
+  color: var(--text-color);
+  align-self: center;
+}
+
+.errorMessage {
+  align-self: center;
+  color: rgb(180, 20, 20);
+  font-size: 20px;
+}

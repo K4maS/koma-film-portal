@@ -1,5 +1,5 @@
 .footer {
-  background-color: black;
+  background-color: var(--footer-bg);
   padding: 30px 0;
 }
 .block {
@@ -8,7 +8,7 @@
   justify-content: space-between;
 }
 .link {
-  color: #ffffff;
+  color: var(--button-text);
   text-decoration: none;
   text-transform: uppercase;
 }

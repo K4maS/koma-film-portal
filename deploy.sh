@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-
+npm run build
 # Остановить публикацию при ошибках
 set -e
 

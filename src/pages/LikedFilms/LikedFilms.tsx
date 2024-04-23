@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { FilmsList } from '../../components/FilmsList/FilmsList';
 import { Header } from '../../components/Header/Header';
 import PageMessage from '../../components/MessageBlock/MessageBlock';
@@ -7,6 +7,7 @@ import { kpFullFilmType } from '../../types/filmTypes';
 import { GetIndexOfUserById } from '../../util/getIndexOfUserById';
 import { DividePages } from '../../util/dividePages';
 import { PageContext } from '../../contextAPI/AppContext/AppContextProvider';
+import { FilmsFilter } from '../../util/filmsFilter';
 
 export default function LikedFilms() {
 	const allLikedFilmsIdList = useAppSelector((state) => state.users.likedFilms);
@@ -25,23 +26,7 @@ export default function LikedFilms() {
 		}
 	}, [likedFilms]);
 
-	function filmsFilter(data: kpFullFilmType[]): Array<kpFullFilmType[]> | [] {
-		let pageLikedFilms: Array<kpFullFilmType[]> | [] = [];
-
-		if (data) {
-			const pagedFilms = data.filter(
-				(elem: kpFullFilmType): kpFullFilmType | undefined => {
-					if (likedFilmsIdList && likedFilmsIdList.includes(elem.kinopoiskId)) {
-						return elem;
-					}
-				},
-			);
-			pageLikedFilms = DividePages(pagedFilms);
-			console.log(pageLikedFilms, pageData);
-		}
-
-		return pageLikedFilms;
-	}
+	const FilmsFilterMemo = useCallback(FilmsFilter, [likedFilmsIdList]);
 
 	return (
 		<div>
@@ -49,13 +34,21 @@ export default function LikedFilms() {
 			<div className="container">
 				{currentUserId === null ? (
 					<PageMessage title="Авторизуйтесь чтобы увидеть ваш список любимых фильмов" />
-				) : filmsFilter(allLikedFilmsIdList).length <= 0 ? (
+				) : FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList).length <=
+				  0 ? (
 					<PageMessage title="Список пуст" />
-				) : filmsFilter(allLikedFilmsIdList) && pageData ? (
+				) : FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList) &&
+				  pageData ? (
 					<FilmsList
-						pages={filmsFilter(allLikedFilmsIdList).length}
+						pages={
+							FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList).length
+						}
 						onChangePage={pageData?.changeCurrentPage}
-						data={filmsFilter(allLikedFilmsIdList)[pageData?.currentPage]}
+						data={
+							FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList)[
+								pageData?.currentPage
+							]
+						}
 					></FilmsList>
 				) : null}
 			</div>

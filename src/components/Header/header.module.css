@@ -37,7 +37,9 @@
 	border-radius: 1px;
 	background-color: var(--main-text);
 	bottom: -1px;
-	transition: opacity 0.3s linear,  background 0.3s linear;
+	transition:
+		opacity 0.3s linear,
+		background 0.3s linear;
 	opacity: 0;
 }
 

@@ -2,7 +2,7 @@ import { kpFullFilmType } from '../types/filmTypes';
 
 export function DividePages(
 	data: Array<kpFullFilmType>,
-	pages: number = 20,
+	pages = 20,
 ): Array<Array<kpFullFilmType>> {
 	const dataPages: number = Math.ceil(data.length / Number(pages));
 	const pagedData = [];

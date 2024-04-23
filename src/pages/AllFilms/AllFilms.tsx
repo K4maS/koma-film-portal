@@ -5,14 +5,16 @@ import { FilterBlock } from '../../components/FilterBlock/FilterBlock';
 import { Header } from '../../components/Header/Header';
 import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
 import PageMessage from '../../components/MessageBlock/MessageBlock';
-import { useAppSelector } from '../../hooks/storeHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { useGetFilmsFilteredQuery } from '../../store/actions/fimlsApi';
 import style from './allFilms.module.css';
+import { setCurrentPage } from '../../store/slices/Users';
 
 export default function AllFilms() {
 	const filter = useAppSelector((state) => state.users.filmsFilter);
 	const { data, isLoading, error } = useGetFilmsFilteredQuery(filter);
-
+	const dispatch = useAppDispatch();
+	const setPage = (index: number) => dispatch(setCurrentPage(index));
 	return (
 		<div>
 			<Header></Header>
@@ -27,7 +29,11 @@ export default function AllFilms() {
 					) : data.items.length <= 0 ? (
 						<PageMessage title="По данному запросу ничего не найдено" />
 					) : data ? (
-						<FilmsList data={data.items} pages={data.totalPages}></FilmsList>
+						<FilmsList
+							onChangePage={setPage}
+							data={data.items}
+							pages={data.totalPages}
+						></FilmsList>
 					) : null}
 				</div>
 			</div>

@@ -13,11 +13,15 @@ interface FilmsListType
 	> {
 	data: kpFullFilmType[];
 	pages?: number;
+	onChangePage: (index: number) => void;
 }
 
-export const FilmsList: React.FC<FilmsListType> = ({ data, pages }) => {
+export const FilmsList: React.FC<FilmsListType> = ({
+	data,
+	pages,
+	onChangePage,
+}) => {
 	const page = useAppSelector((state) => state.users.filmsFilter.page);
-	const dispatch = useAppDispatch();
 
 	return (
 		<div>
@@ -29,12 +33,12 @@ export const FilmsList: React.FC<FilmsListType> = ({ data, pages }) => {
 			{pages && pages > 1 && (
 				<ul className={style.pagination}>
 					{pages &&
-						Array.from({ length: pages - 1 }).map((elem, index) => {
+						Array.from({ length: pages }).map((elem, index) => {
 							index = index + 1;
 							return (
 								<li className={style.paginationItem} key={index}>
 									<PaginationBtn
-										onClick={() => dispatch(setCurrentPage(index))}
+										onClick={() => onChangePage(index)}
 										index={index}
 										active={index === page}
 									></PaginationBtn>

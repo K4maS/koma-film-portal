@@ -12,6 +12,10 @@
 	background-position: 94% 55%;
 	background-size: 20px;
 	background-repeat: no-repeat;
+	transition:
+		background 0.3s linear,
+		border 0.3s linear,
+		color 0.3s linear;
 }
 /* .select::before {
 	content: '';
@@ -25,7 +29,6 @@
 } */
 
 .select:focus {
-	
 }
 .select option {
 	color: var(--button-text);
@@ -41,4 +44,10 @@
 
 .select::-ms-expand {
 	display: none;
+}
+
+@media (max-width: 767px) {
+	.select {
+		padding: 10px 20px;
+	}
 }

@@ -12,6 +12,10 @@
 	font-weight: 700;
 	font-size: 17px;
 	width: 100%;
+	transition:
+		background 0.3s linear,
+		border 0.3s linear,
+		color 0.3s linear;
 }
 
 .inputBtn {
@@ -28,4 +32,10 @@ input::-webkit-inner-spin-button {
 	/* display: none; <- Crashes Chrome on hover */
 	-webkit-appearance: none;
 	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+@media (max-width: 767px) {
+	.input {
+		padding: 10px 20px;
+	}
 }

@@ -1,4 +1,7 @@
 :root {
+}
+
+html[data-theme='ligth'] {
 	--main-text: #fff;
 	--background: rgb(110, 110, 110);
 	--button-bg: #ef233c;
@@ -13,6 +16,21 @@
 	--footer-bg: black;
 }
 
+html[data-theme='dark'] {
+	--main-text: #a1a1a1;
+	--background: rgb(58, 58, 58);
+	--button-bg: #a72130;
+	--button-bg-hov: #aa5862;
+	--button-bg-act: #b35d67;
+	--button-text: #a1a1a1;
+	--logo-color: #9e9c9c;
+	--header-bg: #9e9c9c83;
+	--item-bg: rgb(78, 77, 77);
+	--item-bg-hover: rgb(112, 112, 112);
+	--item-shadow: rgba(77, 77, 77, 0.377);
+	--footer-bg: black;
+}
+
 body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -22,6 +40,9 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	background-color: var(--background);
 	color: var(--main-text);
+	transition:
+		color 0.3s linear,
+		background 0.3s linear;
 }
 
 code {

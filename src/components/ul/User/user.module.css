@@ -13,6 +13,7 @@
 	font-size: 20px;
 	cursor: pointer;
 	width: 140px;
+	transition: color 0.3s linear;
 }
 .userAva {
 	display: flex;
@@ -27,6 +28,9 @@
 	border-radius: 50%;
 	border: 3px solid var(--button-text);
 	background: var(--button-bg);
+	transition:
+		border 0.3s linear,
+		background 0.3s linear;
 }
 
 .userName {
@@ -49,6 +53,26 @@
 	width: 375px;
 	padding: 20px;
 	font-size: 20px;
+	z-index: 1;
+	transition:
+		box-shadow 0.3s linear,
+		background 0.3s linear;
+	animation: menuShow 0.3s linear 0 1;
+}
+
+.menu.open {
+	animation: menuShow 0.3s linear;
+}
+
+@keyframes menuShow {
+	0% {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 .closeBtn {
@@ -61,6 +85,7 @@
 	top: 10px;
 	right: 10px;
 	color: var(--main-text);
+	transition: color 0.3s linear;
 }
 
 .exitBtn {
@@ -68,4 +93,23 @@
 	display: flex;
 	align-items: center;
 	gap: 5px;
+}
+
+.themeBlock {
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	gap: 20px;
+}
+
+.theme {
+	align-self: end;
+}
+
+@media (max-width: 767px) {
+	.menu {
+		right: -16px;
+		top: -10px;
+		width: 355px;
+	}
 }

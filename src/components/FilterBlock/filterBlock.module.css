@@ -1,7 +1,20 @@
+.filter {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
 .filterBlock {
 	display: grid;
 	justify-content: space-between;
 	grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
 	gap: 20px;
 	flex-wrap: wrap;
+}
+.searchInput {
+	max-width: 375px;
+}
+
+.showFilterBtn {
+	align-self: center;
+	padding: 10px 20px;
 }

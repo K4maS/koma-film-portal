@@ -9,10 +9,13 @@ export type UserType = {
 	likedFilmsId: number[];
 };
 
+export type colorThemeType = 'ligth' | 'dark';
+
 export type InitialStateType = {
 	usersList: UserType[];
 	currentUserId: number | null;
 	userError: string | null;
 	likedFilms: kpFullFilmType[];
 	filmsFilter: kpFilterType;
+	colorTheme: colorThemeType;
 };

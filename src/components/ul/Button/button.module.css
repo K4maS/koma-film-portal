@@ -29,3 +29,9 @@
 	color: var(--header-bg);
 	cursor: auto;
 }
+
+@media (max-width: 767px) {
+	.btn {
+		padding: 10px 20px;
+	}
+}

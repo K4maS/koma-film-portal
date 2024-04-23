@@ -47,6 +47,7 @@ export default function Form() {
 				getAuthorization(e, liginData)
 			}
 		>
+			<h1 className={style.title}>Авторизация</h1>
 			<Input
 				type={'text'}
 				placeholder={'Логин'}

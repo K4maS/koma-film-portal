@@ -4,6 +4,7 @@ import {
 	InitialStateType,
 	UserType,
 	authDataType,
+	colorThemeType,
 } from '../../../types/userTypes';
 import { GetIndexOfUserById } from '../../../util/getIndexOfUserById';
 
@@ -31,6 +32,7 @@ const initialState: InitialStateType = {
 	currentUserId: 0,
 	userError: null,
 	likedFilms: [],
+	colorTheme: 'ligth',
 };
 
 export const usersSlice = createSlice({
@@ -198,6 +200,10 @@ export const usersSlice = createSlice({
 		setErrorMessage: (state, action: PayloadAction<string | null>) => {
 			state.userError = action.payload;
 		},
+
+		setColorTheme: (state, action: PayloadAction<colorThemeType>) => {
+			state.colorTheme = action.payload;
+		},
 	},
 });
 
@@ -213,5 +219,6 @@ export const {
 	updateLikedFilmsList,
 	setFilterSettings,
 	setErrorMessage,
+	setColorTheme,
 } = usersSlice.actions;
 export default usersSlice.reducer;

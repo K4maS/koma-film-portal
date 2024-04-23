@@ -1,7 +1,7 @@
 import style from './header.module.css';
 import { Button } from '../ul/Button/Button';
 import { Logo } from '../ul/Logo/Logo';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { navigPaths } from '../../navigationPaths';
 import SetClasses from '../../util/setClasses';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -40,19 +40,19 @@ export const Header: React.FC = ({ ...props }) => {
 						})}
 					</nav>
 					{currentUserId === null ? (
-						<Button
-							title="Войти"
-							onClick={() => {
-								navigate(navigPaths.login);
-							}}
-						></Button>
+						<div className={style.headerBtnsBlock}>
+							<Button
+								className={style.loginBtn}
+								title="Войти"
+								onClick={() => {
+									navigate(navigPaths.login);
+								}}
+							></Button>
+							<Link className={style.authLink} to={navigPaths.registriation}>
+								Зарегистрироваться
+							</Link>
+						</div>
 					) : (
-						// <Button
-						// 	title="Выйти"
-						// 	onClick={() => {
-						// 		dispatch(doUserExid());
-						// 	}}
-						// ></Button>
 						<User
 							onClick={() => {
 								dispatch(doUserExid());

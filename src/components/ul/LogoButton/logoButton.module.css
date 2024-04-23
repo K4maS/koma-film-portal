@@ -9,6 +9,7 @@
 	font-size: 15px;
 	transition:
 		background 0.3s linear,
+		border 0.3s linear,
 		color 0.3s linear;
 }
 .btn:active,

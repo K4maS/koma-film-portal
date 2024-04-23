@@ -57,6 +57,8 @@ export default function RegistrationForm() {
 				getRegistration(e, loginData);
 			}}
 		>
+			<h1 className={style.title}>Регистрация</h1>
+
 			<Input
 				type={'text'}
 				placeholder={'Логин'}

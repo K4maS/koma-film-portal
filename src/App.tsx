@@ -11,6 +11,8 @@ import {
 	updateUsers,
 } from './store/slices/Users';
 import { LoadingProcess } from './components/LoadingProcess/LoadingProcess';
+import { useTheme } from './hooks/useTheme';
+import { AppContextProvider } from './contextAPI/AppContext/AppContextProvider';
 
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage/AuthPage'));
 const LazyRegistrationPage = React.lazy(
@@ -27,7 +29,10 @@ const LazyLikedFilms = React.lazy(
 
 function App() {
 	const dispatch = useAppDispatch();
-
+	const colorTheme = useAppSelector((state) => {
+		state.users.colorTheme;
+	});
+	useTheme();
 	useEffect(() => {
 		const usersLocal = localStorage.getItem('users');
 		const currentUserIdLocal = localStorage.getItem('currentUserId');
@@ -78,7 +83,9 @@ function App() {
 						path={navigPaths.liked}
 						element={
 							<Suspense fallback={<LoadingProcess />}>
-								<LazyLikedFilms />
+								<AppContextProvider>
+									<LazyLikedFilms />
+								</AppContextProvider>
 							</Suspense>
 						}
 					/>

@@ -8,6 +8,10 @@
 	border-radius: 50px;
 }
 
+.title {
+	align-self: center;
+}
+
 .link {
 	color: var(--text-color);
 	align-self: center;
@@ -17,4 +21,10 @@
 	align-self: center;
 	color: rgb(180, 20, 20);
 	font-size: 20px;
+}
+
+@media (max-width: 767px) {
+	.form {
+		padding: 20px;
+	}
 }

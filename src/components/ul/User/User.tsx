@@ -8,6 +8,8 @@ import { Button } from '../Button/Button';
 import { LogoButton } from '../LogoButton/LogoButton';
 import { MdClose } from 'react-icons/md';
 import { RxExit } from 'react-icons/rx';
+import { useTheme } from '../../../hooks/useTheme';
+import { Switch } from '../Switch';
 
 interface ButtonProps
 	extends React.DetailedHTMLProps<
@@ -28,6 +30,7 @@ export const User: React.FC<ButtonProps> = ({
 	const usersList = useAppSelector((state) => state.users.usersList);
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const menuRef = useRef<HTMLDivElement>(null);
+	const { theme, setThemeBinar } = useTheme();
 
 	const currentUser = useAppSelector((state) => {
 		if (currentUserId !== null) {
@@ -62,6 +65,7 @@ export const User: React.FC<ButtonProps> = ({
 			document.removeEventListener('click', handleClick);
 		};
 	}, [menuIsOpen, setMenuIsOpen]);
+
 	return (
 		<div ref={menuRef} className={style.userBlock}>
 			<button
@@ -77,7 +81,7 @@ export const User: React.FC<ButtonProps> = ({
 				<span className={style.userName}>{currentUser?.login}</span>
 			</button>
 			{menuIsOpen && (
-				<div className={style.menu}>
+				<div className={SetClasses(style.menu, menuIsOpen ? style.open : '')}>
 					<button
 						className={style.closeBtn}
 						onClick={() => {
@@ -87,6 +91,16 @@ export const User: React.FC<ButtonProps> = ({
 						x
 					</button>
 					<span className={style.menuName}>{currentUser?.login}</span>
+					<div className={style.themeBlock}>
+						<span className={style.themeText}>Ночная тема:</span>
+						<Switch
+							className={style.theme}
+							checked={'ligth' === theme}
+							onClick={() => {
+								setThemeBinar();
+							}}
+						></Switch>
+					</div>
 					<LogoButton className={style.exitBtn} onClick={onClick}>
 						<RxExit />
 						Выход

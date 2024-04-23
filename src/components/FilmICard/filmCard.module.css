@@ -11,6 +11,10 @@
 	width: 100%;
 	margin-bottom: 30px;
 	min-height: 500px;
+	transition:
+		background 0.3s linear,
+		box-shadow 0.3s linear,
+		color 0.3s linear;
 }
 
 .poster {
@@ -60,4 +64,34 @@
 	height: 100%;
 	padding: 7px 20px 7px 0;
 	font-weight: bold;
+}
+
+@media (max-width: 767px) {
+	.block {
+		flex-direction: column;
+		padding: 10px 10px;
+	}
+	.poster {
+		width: 100%;
+	}
+	.rightBlockTop {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 15px;
+	}
+	.text {
+		margin-right: 0;
+		text-align: center;
+		gap: 0;
+	}
+	.label {
+		display: flex;
+		height: 100%;
+		padding: 5px 10px 5px 0;
+		font-weight: bold;
+		font-size: 15px;
+		width: 40%;
+	}
 }

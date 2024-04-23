@@ -8,10 +8,11 @@
 .headerBlock {
 	padding: 10px;
 	background-color: var(--header-bg);
-	border-radius: 100px;
+	border-radius: 30px;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	transition: background 0.3s linear;
 }
 .nav {
 	display: flex;
@@ -26,6 +27,7 @@
 	text-transform: uppercase;
 	font-weight: 700;
 	transition: color 0.3s linear;
+	transition: color 0.3s linear;
 }
 .link::before {
 	content: '';
@@ -35,7 +37,7 @@
 	border-radius: 1px;
 	background-color: var(--main-text);
 	bottom: -1px;
-	transition: opacity 0.3s linear;
+	transition: opacity 0.3s linear,  background 0.3s linear;
 	opacity: 0;
 }
 
@@ -44,4 +46,40 @@
 }
 .link.active::before {
 	opacity: 1;
+}
+
+.headerBtnsBlock {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.authLink {
+	/* position: absolute; */
+	bottom: -10px;
+	left: 0px;
+	color: var(--main-text);
+	font-size: 11px;
+}
+
+@media (max-width: 767px) {
+	.headerBlock {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		justify-items: center;
+		gap: 10px;
+		border-radius: 20px;
+	}
+	.nav {
+		order: 2;
+		grid-column: span 2;
+	}
+
+	.link {
+		font-size: 15px;
+	}
+
+	.loginBtn {
+		margin-left: auto;
+	}
 }

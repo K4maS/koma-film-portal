@@ -12,10 +12,13 @@ import { Select } from '../ul/Select/Select';
 import { Button } from '../ul/Button/Button';
 import useDebounce from '../../hooks/debounceHook';
 import { CustomSelect } from '../ul/CustomSelet/CustomSelect';
+import SetClasses from '../../util/setClasses';
+import { LogoButton } from '../ul/LogoButton/LogoButton';
 
 export const FilterBlock = () => {
 	const dispatch = useAppDispatch();
 	const stateFilterBlock = useAppSelector((state) => state.users.filmsFilter);
+	const [showFilters, setShowFilters] = useState(false);
 
 	const [filterObj, setFilterObj] = useState<kpFilterType>(filterExample);
 	const [filterObjBefore, setFilterObjBefore] =
@@ -64,85 +67,100 @@ export const FilterBlock = () => {
 	}, [debounceValue]);
 
 	return (
-		<div className={style.filterBlock}>
-			<Input
-				type="text"
-				value={filterObj.keyword ?? ''}
-				placeholder="Поиск"
-				className={style.filterInput}
-				onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-					ActionOnInput(e, 'keyword');
-				}}
-			/>
-			<Select
-				options={filterOrder}
-				value={filterObj.order ?? ''}
-				onChange={(e) => {
-					ActionOnSelect(e, 'order');
-				}}
-			></Select>
-			{/* <CustomSelect
-				options={filterOrder}
-				value={null}
-				// onChange={(e) => {
-				// 	ActionOnSelect(e, 'order');
-				// }}
-			></CustomSelect> */}
-			<Select
-				value={filterObj.type ?? ''}
-				options={FilterType}
-				onChange={(e) => {
-					ActionOnSelect(e, 'type');
-				}}
-			></Select>
+		<div className={style.filter}>
+			<div className={style.filterBlock}>
+				<Input
+					type="text"
+					value={filterObj.keyword ?? ''}
+					placeholder="Поиск"
+					className={style.searchInput}
+					onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+						ActionOnInput(e, 'keyword');
+					}}
+				/>
+				{showFilters && (
+					<>
+						<Select
+							options={filterOrder}
+							value={filterObj.order ?? ''}
+							onChange={(e) => {
+								ActionOnSelect(e, 'order');
+							}}
+						></Select>
 
-			<Input
-				type="number"
-				value={filterObj.ratingFrom ?? ''}
-				className={style.filterInput}
-				placeholder="Рейтинг от"
-				onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-					ActionOnInput(e, 'ratingFrom');
-				}}
-			/>
-			<Input
-				type="number"
-				value={filterObj.ratingTo ?? ''}
-				className={style.filterInput}
-				placeholder="Рейтинг до"
-				onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-					ActionOnInput(e, 'ratingTo');
-				}}
-			/>
-			<Input
-				type="number"
-				value={filterObj.yearFrom ?? ''}
-				className={style.filterInput}
-				placeholder="Год от"
-				onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-					ActionOnInput(e, 'yearFrom');
-				}}
-			/>
-			<Input
-				type="number"
-				value={filterObj.yearTo ?? ''}
-				className={style.filterInput}
-				placeholder="Год до"
-				onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-					ActionOnInput(e, 'yearTo');
-				}}
-			/>
+						<Select
+							value={filterObj.type ?? ''}
+							options={FilterType}
+							onChange={(e) => {
+								ActionOnSelect(e, 'type');
+							}}
+						></Select>
 
-			<Button
-				disabled={
-					JSON.stringify(stateFilterBlock) === JSON.stringify(filterExample)
-				}
-				title={'Сбросить фильтр'}
+						<Input
+							type="number"
+							value={filterObj.ratingFrom ?? ''}
+							className={style.filterInput}
+							placeholder="Рейтинг от"
+							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+								ActionOnInput(e, 'ratingFrom');
+							}}
+						/>
+						<Input
+							type="number"
+							value={filterObj.ratingTo ?? ''}
+							className={style.filterInput}
+							placeholder="Рейтинг до"
+							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+								ActionOnInput(e, 'ratingTo');
+							}}
+						/>
+						<Input
+							type="number"
+							value={filterObj.yearFrom ?? ''}
+							className={style.filterInput}
+							placeholder="Год от"
+							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+								ActionOnInput(e, 'yearFrom');
+							}}
+						/>
+						<Input
+							type="number"
+							value={filterObj.yearTo ?? ''}
+							className={style.filterInput}
+							placeholder="Год до"
+							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+								ActionOnInput(e, 'yearTo');
+							}}
+						/>
+
+						<Button
+							disabled={
+								JSON.stringify(stateFilterBlock) ===
+								JSON.stringify(filterExample)
+							}
+							title={'Сбросить фильтр'}
+							onClick={() => {
+								setFilterObj(filterExample);
+								dispatch(setFilterSettings(filterExample));
+							}}
+						></Button>
+					</>
+				)}
+			</div>
+
+			<LogoButton
+				className={SetClasses(
+					style.showFilterBtn,
+					showFilters ? style.filterActive : '',
+				)}
 				onClick={() => {
-					setFilterObj(filterExample);
-					dispatch(setFilterSettings(filterExample));
+					setShowFilters((showFilters) => !showFilters);
 				}}
-			></Button>
+			>
+				{showFilters
+					? 'Закрыть расширенный фильтры'
+					: 'Открыть расширенный фильтры'}
+			</LogoButton>
 		</div>
 	);
 };

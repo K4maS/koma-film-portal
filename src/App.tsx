@@ -29,9 +29,7 @@ const LazyLikedFilms = React.lazy(
 
 function App() {
 	const dispatch = useAppDispatch();
-	const colorTheme = useAppSelector((state) => {
-		state.users.colorTheme;
-	});
+
 	useTheme();
 	useEffect(() => {
 		const usersLocal = localStorage.getItem('users');

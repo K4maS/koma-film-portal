@@ -8,6 +8,7 @@ export const useTheme = () => {
 	const setTheme = (theme: colorThemeType) => {
 		dispatch(setColorTheme(theme));
 	};
+
 	const colorTheme = useAppSelector((state) => state.users.colorTheme);
 	const setThemeBinar = () => {
 		if (colorTheme === 'dark') {

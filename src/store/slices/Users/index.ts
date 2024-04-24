@@ -203,6 +203,8 @@ export const usersSlice = createSlice({
 
 		setColorTheme: (state, action: PayloadAction<colorThemeType>) => {
 			state.colorTheme = action.payload;
+			console.log(state.colorTheme);
+			localStorage.setItem('colorTheme', JSON.stringify(state.colorTheme));
 		},
 	},
 });

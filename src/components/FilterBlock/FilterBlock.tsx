@@ -11,7 +11,6 @@ import { Input } from '../ul/Input/Input';
 import { Select } from '../ul/Select/Select';
 import { Button } from '../ul/Button/Button';
 import useDebounce from '../../hooks/debounceHook';
-import { CustomSelect } from '../ul/CustomSelet/CustomSelect';
 import SetClasses from '../../util/setClasses';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
 
@@ -40,11 +39,29 @@ export const FilterBlock = () => {
 	];
 
 	const ActionOnInput = (
-		e: React.ChangeEvent<HTMLInputElement>,
+		e: React.ChangeEvent<HTMLInputElement> | null,
 		field: keyof kpFilterType,
 	) => {
-		const value = (e.target as HTMLInputElement).value;
-		setFilterObj((filterObj) => ({ ...filterObj, [field]: value }));
+		if (e === null) {
+			setFilterObj((filterObj) => ({ ...filterObj, [field]: undefined }));
+		} else {
+			const value = (e.target as HTMLInputElement).value;
+			setFilterObj((filterObj) => ({ ...filterObj, [field]: value }));
+		}
+	};
+
+	const NumInputValidate = (
+		e: React.ChangeEvent<HTMLInputElement>,
+		field: keyof kpFilterType,
+		min = 0,
+		max = 1000,
+	) => {
+		const value = Number(e.target.value);
+		if (isNaN(value) || value > max || value < min) {
+			ActionOnInput(null, field);
+		} else {
+			ActionOnInput(e, field);
+		}
 	};
 
 	const ActionOnSelect = (
@@ -70,7 +87,7 @@ export const FilterBlock = () => {
 		<div className={style.filter}>
 			<div className={style.filterBlock}>
 				<Input
-					type="text"
+					type="search"
 					value={filterObj.keyword ?? ''}
 					placeholder="Поиск"
 					className={style.searchInput}
@@ -102,7 +119,7 @@ export const FilterBlock = () => {
 							className={style.filterInput}
 							placeholder="Рейтинг от"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								ActionOnInput(e, 'ratingFrom');
+								NumInputValidate(e, 'ratingFrom', 0, 10);
 							}}
 						/>
 						<Input
@@ -111,7 +128,7 @@ export const FilterBlock = () => {
 							className={style.filterInput}
 							placeholder="Рейтинг до"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								ActionOnInput(e, 'ratingTo');
+								NumInputValidate(e, 'ratingTo', 0, 10);
 							}}
 						/>
 						<Input
@@ -120,7 +137,7 @@ export const FilterBlock = () => {
 							className={style.filterInput}
 							placeholder="Год от"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								ActionOnInput(e, 'yearFrom');
+								NumInputValidate(e, 'yearFrom', 0, 2050);
 							}}
 						/>
 						<Input
@@ -129,7 +146,7 @@ export const FilterBlock = () => {
 							className={style.filterInput}
 							placeholder="Год до"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								ActionOnInput(e, 'yearTo');
+								NumInputValidate(e, 'yearTo', 0, 2050);
 							}}
 						/>
 

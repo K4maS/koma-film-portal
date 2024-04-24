@@ -1,15 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../../hooks/storeHooks';
-import SetClasses from '../../../util/setClasses';
+import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import SetClasses from '../../util/setClasses';
 import style from './user.module.css';
-import { GetIndexOfUserById } from '../../../util/getIndexOfUserById';
+import { GetIndexOfUserById } from '../../util/getIndexOfUserById';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '../Button/Button';
-import { LogoButton } from '../LogoButton/LogoButton';
+import { Button } from '../ul/Button/Button';
+import { LogoButton } from '../ul/LogoButton/LogoButton';
 import { MdClose } from 'react-icons/md';
 import { RxExit } from 'react-icons/rx';
-import { useTheme } from '../../../hooks/useTheme';
-import { Switch } from '../Switch';
+import { useTheme } from '../../hooks/useTheme';
+import { Switch } from '../ul/Switch';
 
 interface ButtonProps
 	extends React.DetailedHTMLProps<
@@ -25,7 +25,6 @@ export const User: React.FC<ButtonProps> = ({
 	className,
 	...props
 }) => {
-	const dispatch = useAppDispatch();
 	const currentUserId = useAppSelector((state) => state.users.currentUserId);
 	const usersList = useAppSelector((state) => state.users.usersList);
 	const [menuIsOpen, setMenuIsOpen] = useState(false);

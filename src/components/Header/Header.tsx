@@ -6,7 +6,7 @@ import { navigPaths } from '../../navigationPaths';
 import SetClasses from '../../util/setClasses';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
 import { doAuthorization, doUserExid } from '../../store/slices/Users';
-import { User } from '../ul/User/User';
+import { User } from '../User/User';
 import React from 'react';
 
 export const Header: React.FC = ({ ...props }) => {

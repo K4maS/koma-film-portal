@@ -1,6 +1,8 @@
 :root {
 }
-
+html {
+	background-color: rgb(110, 110, 110);
+}
 html[data-theme='ligth'] {
 	--main-text: #fff;
 	--background: rgb(110, 110, 110);

@@ -42,7 +42,7 @@ export const FilterBlock = () => {
 		e: React.ChangeEvent<HTMLInputElement> | null,
 		field: keyof kpFilterType,
 	) => {
-		if (e === null) {
+		if (e === null || e.target.value === '') {
 			setFilterObj((filterObj) => ({ ...filterObj, [field]: undefined }));
 		} else {
 			const value = (e.target as HTMLInputElement).value;
@@ -90,7 +90,7 @@ export const FilterBlock = () => {
 			<div className={style.filterBlock}>
 				<Input
 					type="search"
-					value={filterObj.keyword ?? ''}
+					value={filterObj.keyword ?? undefined}
 					placeholder="Поиск"
 					className={style.searchInput}
 					onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,14 +101,14 @@ export const FilterBlock = () => {
 					<>
 						<Select
 							options={filterOrder}
-							value={filterObj.order ?? ''}
+							value={filterObj.order ?? undefined}
 							onChange={(e) => {
 								ActionOnSelect(e, 'order');
 							}}
 						></Select>
 
 						<Select
-							value={filterObj.type ?? ''}
+							value={filterObj.type ?? undefined}
 							options={FilterType}
 							onChange={(e) => {
 								ActionOnSelect(e, 'type');
@@ -117,7 +117,7 @@ export const FilterBlock = () => {
 
 						<Input
 							type="number"
-							value={filterObj.ratingFrom ?? ''}
+							value={filterObj.ratingFrom ?? undefined}
 							className={style.filterInput}
 							placeholder="Рейтинг от"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -126,7 +126,7 @@ export const FilterBlock = () => {
 						/>
 						<Input
 							type="number"
-							value={filterObj.ratingTo ?? ''}
+							value={filterObj.ratingTo ?? undefined}
 							className={style.filterInput}
 							placeholder="Рейтинг до"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +135,7 @@ export const FilterBlock = () => {
 						/>
 						<Input
 							type="number"
-							value={filterObj.yearFrom ?? ''}
+							value={filterObj.yearFrom ?? undefined}
 							className={style.filterInput}
 							placeholder="Год от"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -144,7 +144,7 @@ export const FilterBlock = () => {
 						/>
 						<Input
 							type="number"
-							value={filterObj.yearTo ?? ''}
+							value={filterObj.yearTo ?? undefined}
 							className={style.filterInput}
 							placeholder="Год до"
 							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {

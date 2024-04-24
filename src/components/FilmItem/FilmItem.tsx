@@ -47,17 +47,19 @@ export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
 				className={style.link}
 				to={`${navigPaths.card}/${data.kinopoiskId}`}
 			>
-				<img
-					className={style.poster}
-					src={data.posterUrlPreview}
-					alt={
-						data.nameRu
-							? data.nameRu
-							: data.nameEn
-								? data.nameEn
-								: data.nameOriginal!
-					}
-				/>
+				<div className={style.imgBlock}>
+					<img
+						className={style.poster}
+						src={data.posterUrlPreview}
+						alt={
+							data.nameRu
+								? data.nameRu
+								: data.nameEn
+									? data.nameEn
+									: data.nameOriginal!
+						}
+					/>
+				</div>
 				<div className={style.block}>
 					<h2>
 						{data.nameRu

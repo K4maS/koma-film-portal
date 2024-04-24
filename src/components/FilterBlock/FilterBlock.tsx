@@ -83,6 +83,8 @@ export const FilterBlock = () => {
 		}
 	}, [debounceValue]);
 
+	useEffect(() => setFilterObj(stateFilterBlock), []);
+
 	return (
 		<div className={style.filter}>
 			<div className={style.filterBlock}>
@@ -158,6 +160,7 @@ export const FilterBlock = () => {
 							title={'Сбросить фильтр'}
 							onClick={() => {
 								setFilterObj(filterExample);
+								setFilterObjBefore(filterExample);
 								dispatch(setFilterSettings(filterExample));
 							}}
 						></Button>

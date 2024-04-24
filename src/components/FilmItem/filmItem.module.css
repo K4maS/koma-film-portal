@@ -28,6 +28,14 @@
 	justify-content: space-around;
 	margin-right: auto;
 }
+.imgBlock {
+	overflow: hidden;
+	height: 100%;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .poster {
 	width: 100px;
 	border-radius: 5px;

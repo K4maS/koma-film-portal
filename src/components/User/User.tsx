@@ -35,6 +35,7 @@ export const User: React.FC<ButtonProps> = ({
 		if (currentUserId !== null) {
 			const index = GetIndexOfUserById(usersList, currentUserId);
 			const user = JSON.parse(JSON.stringify(state.users.usersList[index]));
+
 			if (user?.login?.length < 1) {
 				user.login = 'Unknown';
 			}

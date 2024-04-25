@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { setColorTheme } from '../store/slices/Users';
 import { useAppDispatch, useAppSelector } from './storeHooks';
 import { colorThemeType } from '../types/userTypes';

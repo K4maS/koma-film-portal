@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useLayoutEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { navigPaths } from './navigationPaths';
@@ -31,11 +31,20 @@ function App() {
 
 	const { setTheme } = useTheme();
 
+	useLayoutEffect(() => {
+		const themeLocal = localStorage.getItem('colorTheme');
+		if (themeLocal) {
+			const theme = JSON.parse(themeLocal);
+			if (theme === 'dark' || theme === 'ligth') {
+				setTheme(theme);
+			}
+		}
+	}, []);
+
 	useEffect(() => {
 		const usersLocal = localStorage.getItem('users');
 		const currentUserIdLocal = localStorage.getItem('currentUserId');
 		const likedFilmaLocal = localStorage.getItem('likedFilms');
-		const themeLocal = localStorage.getItem('colorTheme');
 
 		if (usersLocal) {
 			dispatch(updateUsers(JSON.parse(usersLocal)));
@@ -47,11 +56,6 @@ function App() {
 
 		if (likedFilmaLocal) {
 			dispatch(updateLikedFilmsList(JSON.parse(likedFilmaLocal)));
-		}
-		if (themeLocal) {
-			if (themeLocal === 'dark' || themeLocal === 'ligth') {
-				setTheme(themeLocal);
-			}
 		}
 	}, []);
 
@@ -75,14 +79,7 @@ function App() {
 							</Suspense>
 						}
 					/>
-					<Route
-						path={navigPaths.main}
-						element={
-							<Suspense fallback={<LoadingProcess />}>
-								<LazyAllFilms />
-							</Suspense>
-						}
-					/>
+
 					<Route
 						path={navigPaths.liked}
 						element={
@@ -101,7 +98,14 @@ function App() {
 							</Suspense>
 						}
 					/>
-
+					<Route
+						path={navigPaths.main}
+						element={
+							<Suspense fallback={<LoadingProcess />}>
+								<LazyAllFilms />
+							</Suspense>
+						}
+					/>
 					<Route
 						path={'*'}
 						element={

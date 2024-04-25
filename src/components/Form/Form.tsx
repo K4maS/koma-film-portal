@@ -57,7 +57,7 @@ export default function Form() {
 				}}
 			/>
 			<Input
-				type={'password'}
+				inputType={'password'}
 				placeholder={'Пароль'}
 				onInput={(e) => {
 					const value = (e.target as HTMLInputElement).value;

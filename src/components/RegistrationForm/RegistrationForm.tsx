@@ -60,7 +60,7 @@ export default function RegistrationForm() {
 			<h1 className={style.title}>Регистрация</h1>
 
 			<Input
-				type={'text'}
+				inputType={'text'}
 				placeholder={'Логин'}
 				onInput={(e) => {
 					const value = (e.target as HTMLInputElement).value;
@@ -68,7 +68,7 @@ export default function RegistrationForm() {
 				}}
 			/>
 			<Input
-				type={'password'}
+				inputType={'password'}
 				placeholder={'Пароль'}
 				onInput={(e) => {
 					const value = (e.target as HTMLInputElement).value;
@@ -76,7 +76,7 @@ export default function RegistrationForm() {
 				}}
 			/>
 			<Input
-				type={'password'}
+				inputType={'password'}
 				placeholder={'Повторить пароль'}
 				onInput={(e) => {
 					const value = (e.target as HTMLInputElement).value;

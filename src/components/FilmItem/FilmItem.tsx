@@ -61,7 +61,7 @@ export const FilmItem: React.FC<FilmItemType> = ({ data }) => {
 					/>
 				</div>
 				<div className={style.block}>
-					<h2>
+					<h2 className={style.title}>
 						{data.nameRu
 							? data.nameRu
 							: data.nameEn

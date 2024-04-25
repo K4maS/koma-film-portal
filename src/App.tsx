@@ -2,9 +2,8 @@ import React, { Suspense, useEffect } from 'react';
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { navigPaths } from './navigationPaths';
-import { Footer } from './components/Footer/Footer';
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary';
-import { useAppDispatch, useAppSelector } from './hooks/storeHooks';
+import { useAppDispatch } from './hooks/storeHooks';
 import {
 	updateCurrentUserId,
 	updateLikedFilmsList,
@@ -30,11 +29,13 @@ const LazyLikedFilms = React.lazy(
 function App() {
 	const dispatch = useAppDispatch();
 
-	useTheme();
+	const { setTheme } = useTheme();
+
 	useEffect(() => {
 		const usersLocal = localStorage.getItem('users');
 		const currentUserIdLocal = localStorage.getItem('currentUserId');
 		const likedFilmaLocal = localStorage.getItem('likedFilms');
+		const themeLocal = localStorage.getItem('colorTheme');
 
 		if (usersLocal) {
 			dispatch(updateUsers(JSON.parse(usersLocal)));
@@ -46,6 +47,11 @@ function App() {
 
 		if (likedFilmaLocal) {
 			dispatch(updateLikedFilmsList(JSON.parse(likedFilmaLocal)));
+		}
+		if (themeLocal) {
+			if (themeLocal === 'dark' || themeLocal === 'ligth') {
+				setTheme(themeLocal);
+			}
 		}
 	}, []);
 
@@ -106,7 +112,6 @@ function App() {
 					/>
 				</Routes>
 			</ErrorBoundary>
-			{/* <Footer></Footer> */}
 		</div>
 	);
 }

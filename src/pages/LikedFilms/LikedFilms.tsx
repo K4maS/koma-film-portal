@@ -1,11 +1,8 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { FilmsList } from '../../components/FilmsList/FilmsList';
-import { Header } from '../../components/Header/Header';
 import PageMessage from '../../components/MessageBlock/MessageBlock';
 import { useAppSelector } from '../../hooks/storeHooks';
-import { kpFullFilmType } from '../../types/filmTypes';
 import { GetIndexOfUserById } from '../../util/getIndexOfUserById';
-import { DividePages } from '../../util/dividePages';
 import { PageContext } from '../../contextAPI/AppContext/AppContextProvider';
 import { FilmsFilter } from '../../util/filmsFilter';
 
@@ -30,7 +27,6 @@ export default function LikedFilms() {
 
 	return (
 		<div>
-			<Header></Header>
 			<div className="container">
 				{currentUserId === null ? (
 					<PageMessage title="Авторизуйтесь чтобы увидеть ваш список любимых фильмов" />

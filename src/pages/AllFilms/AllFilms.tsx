@@ -2,7 +2,6 @@ import React from 'react';
 import { ErrorBlock } from '../../components/ErrorBlock/ErrorBlock';
 import { FilmsList } from '../../components/FilmsList/FilmsList';
 import { FilterBlock } from '../../components/FilterBlock/FilterBlock';
-import { Header } from '../../components/Header/Header';
 import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
 import PageMessage from '../../components/MessageBlock/MessageBlock';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
@@ -17,7 +16,6 @@ export default function AllFilms() {
 	const setPage = (index: number) => dispatch(setCurrentPage(index));
 	return (
 		<div>
-			<Header></Header>
 			<div className="container">
 				<div className={style.block}>
 					<FilterBlock></FilterBlock>

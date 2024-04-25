@@ -12,6 +12,7 @@ import {
 import { LoadingProcess } from './components/LoadingProcess/LoadingProcess';
 import { useTheme } from './hooks/useTheme';
 import { AppContextProvider } from './contextAPI/AppContext/AppContextProvider';
+import { Header } from './components/Header/Header';
 
 const LazyAuthPage = React.lazy(() => import('./pages/AuthPage/AuthPage'));
 const LazyRegistrationPage = React.lazy(
@@ -61,6 +62,7 @@ function App() {
 
 	return (
 		<div className="App">
+			<Header></Header>
 			<ErrorBoundary>
 				<Routes>
 					<Route

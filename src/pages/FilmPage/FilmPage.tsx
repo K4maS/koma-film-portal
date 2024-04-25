@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { FilmCard } from '../../components/FilmICard/FilmICard';
-import { Header } from '../../components/Header/Header';
 import { useGetFilmByIdQuery } from '../../store/actions/fimlsApi';
 import { ErrorBlock } from '../../components/ErrorBlock/ErrorBlock';
 import { LoadingProcess } from '../../components/LoadingProcess/LoadingProcess';
@@ -13,7 +12,6 @@ export default function FilmPage() {
 
 	return (
 		<div>
-			<Header></Header>
 			<div className="container">
 				{error ? (
 					<ErrorBlock text={'Не удалось загрузить'} />

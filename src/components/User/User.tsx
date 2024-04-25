@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
+import { useAppSelector } from '../../hooks/storeHooks';
 import SetClasses from '../../util/setClasses';
 import style from './user.module.css';
 import { GetIndexOfUserById } from '../../util/getIndexOfUserById';
 import React, { useEffect, useRef, useState } from 'react';
-import { Button } from '../ul/Button/Button';
 import { LogoButton } from '../ul/LogoButton/LogoButton';
-import { MdClose } from 'react-icons/md';
 import { RxExit } from 'react-icons/rx';
 import { useTheme } from '../../hooks/useTheme';
 import { Switch } from '../ul/Switch';

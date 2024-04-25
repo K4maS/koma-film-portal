@@ -62,8 +62,8 @@ function App() {
 
 	return (
 		<div className="App">
-			<Header></Header>
 			<ErrorBoundary>
+				<Header></Header>
 				<Routes>
 					<Route
 						path={navigPaths.login}

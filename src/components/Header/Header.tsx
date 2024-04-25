@@ -5,7 +5,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { navigPaths } from '../../navigationPaths';
 import SetClasses from '../../util/setClasses';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { doAuthorization, doUserExid } from '../../store/slices/Users';
+import { doUserExid } from '../../store/slices/Users';
 import { User } from '../User/User';
 import React from 'react';
 

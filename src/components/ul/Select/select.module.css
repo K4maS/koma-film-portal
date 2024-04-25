@@ -1,10 +1,53 @@
 .select {
-  background-color: var(--header-bg);
-  color: var(--button-text);
-  border-radius: 100px;
-  padding: 18px 30px;
-  border: 2px solid var(--header-bg);
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 17px;
+	position: relative;
+	background-color: var(--header-bg);
+	color: var(--button-text);
+	border-radius: 100px;
+	padding: 18px 30px;
+	border: 2px solid var(--header-bg);
+	cursor: pointer;
+	font-weight: 700;
+	font-size: 17px;
+	background-image: url('../../../img/arrow.png');
+	background-position: 94% 55%;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	transition:
+		background 0.3s linear,
+		border 0.3s linear,
+		color 0.3s linear;
+}
+/* .select::before {
+	content: '';
+	position: absolute;
+	width: 120px;
+	height: 120px;
+	right: 50%;
+	top: 50%;
+	background-color: red;
+	background-image: url('../../../img/arrow.png');
+} */
+
+.select:focus {
+}
+.select option {
+	color: var(--button-text);
+	background-color: var(--item-bg-hover);
+	font-size: 20px;
+}
+
+.select {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.select::-ms-expand {
+	display: none;
+}
+
+@media (max-width: 767px) {
+	.select {
+		padding: 10px 20px;
+	}
 }

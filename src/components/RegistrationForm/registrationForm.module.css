@@ -1,20 +1,30 @@
 .form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  max-width: 500px;
-  padding: 60px 60px 30px;
-  background-color: var(--header-bg);
-  border-radius: 50px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 500px;
+	padding: 60px 60px 30px;
+	background-color: var(--header-bg);
+	border-radius: 50px;
+}
+
+.title {
+	align-self: center;
 }
 
 .link {
-  color: var(--text-color);
-  align-self: center;
+	color: var(--text-color);
+	align-self: center;
 }
 
 .errorMessage {
-  align-self: center;
-  color: rgb(180, 20, 20);
-  font-size: 20px;
+	align-self: center;
+	color: rgb(180, 20, 20);
+	font-size: 20px;
+}
+
+@media (max-width: 767px) {
+	.form {
+		padding: 20px;
+	}
 }

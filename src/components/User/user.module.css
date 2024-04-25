@@ -1,0 +1,118 @@
+.userBlock {
+	position: relative;
+}
+
+.btnUser {
+	background-color: transparent;
+	display: flex;
+	gap: 10px;
+	align-items: center;
+	justify-content: flex-start;
+	border: none;
+	color: var(--button-text);
+	font-size: 20px;
+	cursor: pointer;
+	max-width: 140px;
+	transition: color 0.3s linear;
+}
+.userAva {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	justify-content: center;
+	min-height: 40px;
+	min-width: 40px;
+
+	font-size: 24px;
+	font-weight: bold;
+	border-radius: 50%;
+	border: 3px solid var(--button-text);
+	background: var(--button-bg);
+	transition:
+		border 0.3s linear,
+		background 0.3s linear;
+}
+
+.userName {
+	max-width: 120px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: start;
+}
+
+.menu {
+	position: absolute;
+	right: 0;
+	top: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 10px;
+	background-color: var(--item-bg-hover);
+	box-shadow: 3px 3px 3px var(--item-shadow);
+	border-radius: 20px;
+	width: 375px;
+	min-height: 240px;
+	padding: 20px;
+	font-size: 20px;
+	z-index: 1;
+	transition:
+		box-shadow 0.3s linear,
+		background 0.3s linear;
+	animation: menuShow 0.3s linear 0 1;
+}
+
+.menu.open {
+	animation: menuShow 0.3s linear;
+}
+
+@keyframes menuShow {
+	0% {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.closeBtn {
+	background-color: unset;
+	border: none;
+	align-self: flex-end;
+	font-size: 20px;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	color: var(--main-text);
+	transition: color 0.3s linear;
+}
+
+.exitBtn {
+	align-self: flex-end;
+	display: flex;
+	align-items: center;
+	gap: 5px;
+}
+
+.themeBlock {
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	gap: 20px;
+}
+
+.theme {
+	align-self: end;
+}
+
+@media (max-width: 767px) {
+	.menu {
+		right: -16px;
+		top: -10px;
+		width: 355px;
+	}
+}

@@ -1,42 +1,64 @@
-:root {
-  --main-text: #fff;
-  --background: rgb(110, 110, 110);
-  --button-bg: #ef233c;
-  --button-bg-hov: #f1828f;
-  --button-bg-act: #ce6e79;
-  --button-text: #fff;
-  --logo-color: #fff;
-  --header-bg: #ffffff83;
-  --item-bg: rgb(133, 133, 133);
-  --item-bg-hover: rgb(192, 192, 192);
-  --item-shadow: rgba(95, 95, 95, 0.377);
-  --footer-bg: black;
+html[data-theme='ligth'] {
+	--main-text: #fff;
+	--background: rgb(110, 110, 110);
+	--button-bg: #ef233c;
+	--button-bg-hov: #f1828f;
+	--button-bg-act: #ce6e79;
+	--button-text: #fff;
+	--logo-color: #fff;
+	--header-bg: #ffffff83;
+	--item-bg: rgb(133, 133, 133);
+	--item-bg-hover: rgb(192, 192, 192);
+	--item-shadow: rgba(95, 95, 95, 0.377);
+	--footer-bg: black;
+
+	background-color: var(--background);
+}
+
+html[data-theme='dark'] {
+	--main-text: #a1a1a1;
+	--background: rgb(58, 58, 58);
+	--button-bg: #a72130;
+	--button-bg-hov: #aa5862;
+	--button-bg-act: #b35d67;
+	--button-text: #a1a1a1;
+	--logo-color: #9e9c9c;
+	--header-bg: #9e9c9c83;
+	--item-bg: rgb(78, 77, 77);
+	--item-bg-hover: rgb(112, 112, 112);
+	--item-shadow: rgba(77, 77, 77, 0.377);
+	--footer-bg: black;
+
+	background-color: var(--background);
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: var(--background);
-  color: var(--main-text);
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+		'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+		sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background-color: var(--background);
+	color: var(--main-text);
+	transition:
+		color 0.3s linear,
+		background 0.3s linear;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+		monospace;
 }
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 h1,
@@ -46,6 +68,6 @@ h4,
 h5,
 h6,
 p {
-  margin: 0;
-  padding: 0;
+	margin: 0;
+	padding: 0;
 }

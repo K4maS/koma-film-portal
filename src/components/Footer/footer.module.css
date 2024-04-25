@@ -1,14 +1,14 @@
 .footer {
-  background-color: var(--footer-bg);
-  padding: 30px 0;
+	background-color: var(--footer-bg);
+	padding: 30px 0;
 }
 .block {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 .link {
-  color: var(--button-text);
-  text-decoration: none;
-  text-transform: uppercase;
+	color: var(--button-text);
+	text-decoration: none;
+	text-transform: uppercase;
 }

@@ -1,47 +1,87 @@
 .item {
 }
 .link {
-  color: inherit;
-  text-decoration: none;
-  margin-right: auto;
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  width: 100%;
-  background-color: var(--item-bg);
-  border-radius: 20px;
-  box-shadow: 0px 0px 6px var(--item-shadow);
-  height: 200px;
-  padding: 20px 30px;
-  width: 100%;
-  transition: background 0.3s linear;
+	color: inherit;
+	text-decoration: none;
+	margin-right: auto;
+	display: flex;
+	gap: 30px;
+	align-items: center;
+	width: 100%;
+	background-color: var(--item-bg);
+	border-radius: 20px;
+	box-shadow: 0px 0px 6px var(--item-shadow);
+	height: 200px;
+	padding: 20px 30px;
+	width: 100%;
+	transition: background 0.3s linear;
 }
 
 .link:hover {
-  background-color: var(--item-bg-hover);
+	background-color: var(--item-bg-hover);
 }
 
 .block {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  margin-right: auto;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	margin-right: auto;
+}
+.imgBlock {
+	overflow: hidden;
+	height: 100%;
+	width: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .poster {
-  width: 100px;
-  border-radius: 5px;
+	width: 100px;
+	border-radius: 5px;
+}
+
+.title {
+	max-width: 265px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 .logo {
-  width: 20px;
-  height: 20px;
+	width: 20px;
+	height: 20px;
 }
 
 .buttons {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  gap: 20px;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	gap: 20px;
+}
+
+@media (max-width: 767px) {
+	.link {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		flex-direction: column;
+		height: unset;
+		align-items: flex-start;
+		gap: 10px;
+	}
+	.title {
+		max-width: 165px;
+		width: 100%;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		font-size: 20px;
+	}
+	.buttons {
+		flex-direction: row;
+		grid-column: span 2;
+		margin-left: auto;
+	}
 }

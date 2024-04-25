@@ -2,6 +2,7 @@
 	width: 100%;
 	position: relative;
 }
+
 .input {
 	background-color: var(--header-bg);
 	color: var(--button-text);
@@ -32,15 +33,28 @@
 	border: none;
 	cursor: pointer;
 }
+
 .eyeBtn svg {
 	width: 100%;
 	height: 100%;
 }
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
 	/* display: none; <- Crashes Chrome on hover */
 	-webkit-appearance: none;
 	margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type='search']::-webkit-search-cancel-button {
+	-webkit-appearance: none;
+	width: 24px;
+	height: 24px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background: url('../../../img/svg/close-icon.svg');
+	cursor: pointer;
 }
 
 @media (max-width: 767px) {

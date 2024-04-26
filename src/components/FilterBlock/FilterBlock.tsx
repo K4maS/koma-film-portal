@@ -43,7 +43,7 @@ export const FilterBlock = () => {
 		field: keyof kpFilterType,
 	) => {
 		if (e === null || e.target.value === '') {
-			setFilterObj((filterObj) => ({ ...filterObj, [field]: '' }));
+			setFilterObj((filterObj) => ({ ...filterObj, [field]: undefined }));
 		} else {
 			const value = (e.target as HTMLInputElement).value;
 			setFilterObj((filterObj) => ({ ...filterObj, [field]: value }));
@@ -64,18 +64,17 @@ export const FilterBlock = () => {
 			return;
 		}
 
-		// if (year) {
-		// 	if (!'12 '.includes(valueStr[0])) {
-		// 		e.preventDefault();
-		// 		return;
-		// 	}
-		// }
-
-		if (isNaN(value) || value > max || value < min) {
+		if (
+			isNaN(value) ||
+			value > max ||
+			value < min ||
+			valueStr.toLowerCase().includes('e')
+		) {
 			e.preventDefault();
-		} else {
-			ActionOnChange(e, field);
+			return;
 		}
+
+		ActionOnChange(e, field);
 	};
 
 	const ActionOnSelect = (
@@ -130,16 +129,17 @@ export const FilterBlock = () => {
 						></Select>
 
 						<Input
-							type="number"
+							type="text"
 							value={filterObj.ratingFrom ?? ''}
 							className={style.filterInput}
 							placeholder="Рейтинг от (0 - 10)"
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								console.log(e.target.value.toLowerCase().includes('e'));
 								NumInputValidate(e, 'ratingFrom', 0, 10);
 							}}
 						/>
 						<Input
-							type="number"
+							type="text"
 							value={filterObj.ratingTo ?? ''}
 							className={style.filterInput}
 							placeholder="Рейтинг до (0 - 10)"
@@ -148,21 +148,21 @@ export const FilterBlock = () => {
 							}}
 						/>
 						<Input
-							type="number"
+							type="text"
 							value={filterObj.yearFrom ?? ''}
 							className={style.filterInput}
 							placeholder="Год от"
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-								NumInputValidate(e, 'yearFrom', 0, 2050, true);
+								NumInputValidate(e, 'yearFrom', 0, 2999, true);
 							}}
 						/>
 						<Input
-							type="number"
+							type="text"
 							value={filterObj.yearTo ?? ''}
 							className={style.filterInput}
 							placeholder="Год до"
 							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-								NumInputValidate(e, 'yearTo', 0, 2050, true);
+								NumInputValidate(e, 'yearTo', 0, 2999, true);
 							}}
 						/>
 

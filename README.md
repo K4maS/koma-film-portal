@@ -24,5 +24,3 @@
 2. Перейдите в каталог проекта: `cd koma-film-portal`
 3. Установите зависимости: `npm install` или `yarn install`
 4. Запустите приложение: `npm start` или `yarn start`
-
-

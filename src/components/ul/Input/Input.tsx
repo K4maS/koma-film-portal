@@ -45,6 +45,7 @@ export const Input: React.FC<InputProps> = ({
 			/>
 			{inputType === 'password' && (
 				<button
+					type={'button'}
 					onClick={(e) => {
 						doChangeType(e);
 					}}

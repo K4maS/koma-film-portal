@@ -8,6 +8,7 @@
 .headerBlock {
 	padding: 10px;
 	background-color: var(--header-bg);
+	min-height: 95px;
 	border-radius: 30px;
 	display: flex;
 	justify-content: space-between;

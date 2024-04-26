@@ -23,6 +23,30 @@ export default function LikedFilms() {
 		}
 	}, [likedFilms]);
 
+	useEffect(() => {
+		const listLength = FilmsFilter(
+			allLikedFilmsIdList,
+			likedFilmsIdList,
+		).length;
+
+		const pagesCount = Number(listLength);
+		const currentPage = Number(pageData?.currentPage);
+		const setCurrentPage = pageData?.changeCurrentPage;
+
+		const pageIsCorrect = pagesCount > currentPage;
+
+		console.log(pageIsCorrect);
+
+		if (setCurrentPage && !pageIsCorrect) {
+			if (pagesCount > 1) {
+				setCurrentPage(pagesCount - 1);
+			} else {
+				setCurrentPage(currentPage);
+			}
+		}
+		console.log(currentPage, pagesCount);
+	}, [likedFilmsIdList]);
+
 	const FilmsFilterMemo = useCallback(FilmsFilter, [likedFilmsIdList]);
 
 	return (
@@ -39,6 +63,7 @@ export default function LikedFilms() {
 						pages={
 							FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList).length
 						}
+						page={pageData?.currentPage + 1}
 						onChangePage={pageData?.changeCurrentPage}
 						data={
 							FilmsFilterMemo(allLikedFilmsIdList, likedFilmsIdList)[

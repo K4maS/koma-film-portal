@@ -16,7 +16,6 @@ export const Input: React.FC<InputProps> = ({
 	onClick,
 	onInput,
 	onChange,
-	// onShowPassword,
 	className,
 	inputType,
 	...props

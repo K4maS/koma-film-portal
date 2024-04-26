@@ -3,8 +3,6 @@ import { FilmItem } from '../FilmItem/FilmItem';
 import style from './filmsList.module.css';
 import { PaginationBtn } from '../ul/PaginationBtn/PaginationBtn';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { setCurrentPage } from '../../store/slices/Users';
-import React from 'react';
 
 interface FilmsListType
 	extends React.DetailedHTMLProps<
@@ -13,34 +11,35 @@ interface FilmsListType
 	> {
 	data: kpFullFilmType[];
 	pages?: number;
+	page?: number;
 	onChangePage: (index: number) => void;
 }
 
 export const FilmsList: React.FC<FilmsListType> = ({
 	data,
 	pages,
+	page,
 	onChangePage,
 }) => {
-	const page = useAppSelector((state) => state.users.filmsFilter.page);
-
 	return (
 		<div>
 			<ul className={style.list}>
-				{data.map((elem: kpFullFilmType) => {
-					return <FilmItem data={elem} key={elem.kinopoiskId}></FilmItem>;
-				})}
+				{data &&
+					data.map((elem: kpFullFilmType) => {
+						return <FilmItem data={elem} key={elem.kinopoiskId}></FilmItem>;
+					})}
 			</ul>
 			{pages && pages > 1 && (
 				<ul className={style.pagination}>
 					{pages &&
 						Array.from({ length: pages }).map((elem, index) => {
-							index = index + 1;
+							const listPage = index + 1;
 							return (
 								<li className={style.paginationItem} key={index}>
 									<PaginationBtn
 										onClick={() => onChangePage(index)}
-										index={index}
-										active={index === page}
+										index={listPage}
+										active={listPage === page}
 									></PaginationBtn>
 								</li>
 							);

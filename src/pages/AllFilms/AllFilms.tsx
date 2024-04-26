@@ -13,7 +13,9 @@ export default function AllFilms() {
 	const filter = useAppSelector((state) => state.users.filmsFilter);
 	const { data, isLoading, error } = useGetFilmsFilteredQuery(filter);
 	const dispatch = useAppDispatch();
-	const setPage = (index: number) => dispatch(setCurrentPage(index));
+	const setPage = (index: number) => dispatch(setCurrentPage(index + 1));
+	const page = useAppSelector((state) => state.users.filmsFilter.page);
+
 	return (
 		<div>
 			<div className="container">
@@ -31,6 +33,7 @@ export default function AllFilms() {
 							onChangePage={setPage}
 							data={data.items}
 							pages={data.totalPages}
+							page={page}
 						></FilmsList>
 					) : null}
 				</div>

@@ -38,12 +38,12 @@ export const FilterBlock = () => {
 		{ name: 'Теле-шоу', value: 'TV_SHOW' },
 	];
 
-	const ActionOnInput = (
+	const ActionOnChange = (
 		e: React.ChangeEvent<HTMLInputElement> | null,
 		field: keyof kpFilterType,
 	) => {
 		if (e === null || e.target.value === '') {
-			setFilterObj((filterObj) => ({ ...filterObj, [field]: undefined }));
+			setFilterObj((filterObj) => ({ ...filterObj, [field]: '' }));
 		} else {
 			const value = (e.target as HTMLInputElement).value;
 			setFilterObj((filterObj) => ({ ...filterObj, [field]: value }));
@@ -55,12 +55,26 @@ export const FilterBlock = () => {
 		field: keyof kpFilterType,
 		min = 0,
 		max = 1000,
+		year = false,
 	) => {
-		const value = Number(e.target.value);
+		const valueStr = e.target.value;
+		const value = Number(valueStr);
+		if (!/^\d*$/.test(valueStr)) {
+			e.preventDefault();
+			return;
+		}
+
+		// if (year) {
+		// 	if (!'12 '.includes(valueStr[0])) {
+		// 		e.preventDefault();
+		// 		return;
+		// 	}
+		// }
+
 		if (isNaN(value) || value > max || value < min) {
-			ActionOnInput(null, field);
+			e.preventDefault();
 		} else {
-			ActionOnInput(e, field);
+			ActionOnChange(e, field);
 		}
 	};
 
@@ -90,25 +104,25 @@ export const FilterBlock = () => {
 			<div className={style.filterBlock}>
 				<Input
 					type="search"
-					value={filterObj.keyword ?? undefined}
+					value={filterObj.keyword ?? ''}
 					placeholder="Поиск"
 					className={style.searchInput}
-					onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-						ActionOnInput(e, 'keyword');
+					onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+						ActionOnChange(e, 'keyword');
 					}}
 				/>
 				{showFilters && (
 					<>
 						<Select
 							options={filterOrder}
-							value={filterObj.order ?? undefined}
+							value={filterObj.order ?? ''}
 							onChange={(e) => {
 								ActionOnSelect(e, 'order');
 							}}
 						></Select>
 
 						<Select
-							value={filterObj.type ?? undefined}
+							value={filterObj.type ?? ''}
 							options={FilterType}
 							onChange={(e) => {
 								ActionOnSelect(e, 'type');
@@ -117,38 +131,38 @@ export const FilterBlock = () => {
 
 						<Input
 							type="number"
-							value={filterObj.ratingFrom ?? undefined}
+							value={filterObj.ratingFrom ?? ''}
 							className={style.filterInput}
-							placeholder="Рейтинг от"
-							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+							placeholder="Рейтинг от (0 - 10)"
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								NumInputValidate(e, 'ratingFrom', 0, 10);
 							}}
 						/>
 						<Input
 							type="number"
-							value={filterObj.ratingTo ?? undefined}
+							value={filterObj.ratingTo ?? ''}
 							className={style.filterInput}
-							placeholder="Рейтинг до"
-							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+							placeholder="Рейтинг до (0 - 10)"
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 								NumInputValidate(e, 'ratingTo', 0, 10);
 							}}
 						/>
 						<Input
 							type="number"
-							value={filterObj.yearFrom ?? undefined}
+							value={filterObj.yearFrom ?? ''}
 							className={style.filterInput}
 							placeholder="Год от"
-							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								NumInputValidate(e, 'yearFrom', 0, 2050);
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								NumInputValidate(e, 'yearFrom', 0, 2050, true);
 							}}
 						/>
 						<Input
 							type="number"
-							value={filterObj.yearTo ?? undefined}
+							value={filterObj.yearTo ?? ''}
 							className={style.filterInput}
 							placeholder="Год до"
-							onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
-								NumInputValidate(e, 'yearTo', 0, 2050);
+							onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+								NumInputValidate(e, 'yearTo', 0, 2050, true);
 							}}
 						/>
 
@@ -160,7 +174,7 @@ export const FilterBlock = () => {
 							title={'Сбросить фильтр'}
 							onClick={() => {
 								setFilterObj(filterExample);
-								setFilterObjBefore(filterExample);
+								// setFilterObjBefore(filterExample);
 								dispatch(setFilterSettings(filterExample));
 							}}
 						></Button>

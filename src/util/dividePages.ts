@@ -18,5 +18,6 @@ export function DividePages(
 		startIndex = endIndex;
 		endIndex = startIndex + Number(pages);
 	}
+
 	return pagedData;
 }

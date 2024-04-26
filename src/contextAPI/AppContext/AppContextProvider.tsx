@@ -14,7 +14,8 @@ interface AppContextProviderProps {
 export function AppContextProvider({ children }: AppContextProviderProps) {
 	const [currentPage, setCurrentPage] = useState(0);
 	const changeCurrentPage = (page: number) => {
-		setCurrentPage(page - 1);
+		setCurrentPage(page);
+		console.log('current page', page);
 	};
 	return (
 		<PageContext.Provider value={{ currentPage, changeCurrentPage }}>
